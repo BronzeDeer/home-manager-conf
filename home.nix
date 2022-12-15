@@ -4,6 +4,11 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.git = {
     enable = true;
   };
@@ -69,6 +74,7 @@
       { name = "plugins/fd";                tags = [from:oh-my-zsh]; }
       { name = "plugins/fzf";               tags = [from:oh-my-zsh]; }
       { name = "plugins/git";               tags = [from:oh-my-zsh]; }
+      { name = "plugins/gh";               tags = [from:oh-my-zsh]; }
       { name = "plugins/ripgrep";           tags = [from:oh-my-zsh]; }
       { name = "plugins/vi-mode";           tags = [from:oh-my-zsh]; }
       { name = "plugins/direnv";            tags = [from:oh-my-zsh]; }
