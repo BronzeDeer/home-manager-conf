@@ -60,6 +60,10 @@
     zstyle ':autocomplete:*' widget-style menu-select
   '';
 
+  initExtra = ''
+    source <(kubectl completion zsh)
+  '';
+
   shellAliases = {
     ll = "ls -lah";
   };
