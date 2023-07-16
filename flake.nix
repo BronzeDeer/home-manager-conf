@@ -1,31 +1,39 @@
 {
-  description = "Home Manager configuration of Jane Doe";
+  description = "Systemconfiguration flake";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations.pepper = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+  outputs = { self, nixpkgs, home-manager }:
+  let
+    system = "x86_64-linux";
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
+    pkgs = import nixpkgs{
+      inherit system;
+      config = { allowUnfree = true; };
+    };
+
+   lib = nixpkgs.lib;
+
+  in {
+    nixosConfigurations = {
+      nixos-workstation = lib.nixosSystem {
+        inherit system;
+
         modules = [
-          ./home.nix
+          ./machines/workstation/configuration.nix
         ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
       };
     };
+    homeConfigurations.joel = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./home.nix
+      ];
+    };
+  };
 }
