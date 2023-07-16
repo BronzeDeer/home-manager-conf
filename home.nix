@@ -83,6 +83,11 @@
 
   initExtra = ''
     source <(kubectl completion zsh)
+
+    # Fix pos1, end etc. for terminal emulator
+    bindkey  "^[OH"   beginning-of-line #pos1
+    bindkey  "^[OF"   end-of-line #end
+    bindkey  "^[[3~"  delete-char #del
   '';
 
   shellAliases = {
