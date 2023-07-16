@@ -72,7 +72,9 @@
     ];
   };
 
-
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+  ];
 
   # Configure keymap in X11
   services.xserver.layout = "de";
@@ -112,12 +114,20 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
   programs.dconf.enable = true;
   programs.zsh.enable = true;
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
+  # Tell user we are waiting for u2f input/touch
+  security.pam.u2f.cue = true;
 
   # List services that you want to enable:
 

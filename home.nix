@@ -63,6 +63,12 @@
     target ="p10k-config/.p10k.zsh";
   };
 
+  # Import allowed Yubikeys for sudo and login
+  home.file.u2fkeys = {
+    source = ./u2f_keys;
+    target = ".config/Yubico/u2f_keys";
+  };
+
   programs.zsh = {
   # Let HM manage zsh
   enable = true;
