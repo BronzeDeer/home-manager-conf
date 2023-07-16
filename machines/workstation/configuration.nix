@@ -11,6 +11,7 @@
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # nixpkgs.config.allowUnfree = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = false;
@@ -95,6 +96,7 @@
       firefox
       tree
     ];
+    shell = pkgs.zsh;
   };
 
   # List packages installed in system profile. To search, run:
@@ -102,6 +104,9 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    neofetch
+    git
+    home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -111,6 +116,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.dconf.enable = true;
+  programs.zsh.enable = true;
 
   # List services that you want to enable:
 
@@ -126,7 +133,8 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
+  # Does not work with flakes (but they are version controled any way so no need)
+  # system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

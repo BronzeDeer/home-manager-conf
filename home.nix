@@ -11,6 +11,21 @@
 
   programs.git = {
     enable = true;
+    aliases = {
+      quicklog = "log --oneline --graph --decorate";
+      fpush = "push --force-with-lease --force-if-includes";
+      ffmerge = "merge --ff-only";
+    };
+    extraConfig = {
+      pull.rebase = true;
+      rerere.enabled = true;
+      core.editor = "vim";
+
+      user = {
+        email = "pepper@bronze-deer.de";
+        name = "Joel Pepper";
+      };
+    };
   };
 
   # Configure direnv and nix-direnv
