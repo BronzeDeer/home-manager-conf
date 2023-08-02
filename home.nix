@@ -57,6 +57,8 @@
     (nerdfonts.override { fonts = ["FiraCode"];})
   ];
 
+  xsession.numlock.enable = true;
+
   programs.gnome-terminal = {
     enable = true;
     profile = {
