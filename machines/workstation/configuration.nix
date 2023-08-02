@@ -116,10 +116,14 @@
   # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
+    enableSSHSupport = false;
   };
   programs.dconf.enable = true;
   programs.zsh.enable = true;
+
+  programs.ssh = {
+    startAgent = true;
+  };
 
   security.pam.services = {
     login.u2fAuth = true;

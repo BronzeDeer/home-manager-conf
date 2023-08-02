@@ -82,6 +82,24 @@
     target = ".config/Yubico/u2f_keys";
   };
 
+  home.file.sshKeys = {
+    source = ./.ssh;
+    # For some reason home-manager struggles with linking into .ssh (likely due to generating and linking .ssh/config)
+    # Since we auto discover these keys anyway, inserting another subfolder should not pose a problem
+    target = ".ssh/keys";
+    recursive = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+    controlMaster = "auto";
+    matchBlocks = {
+      "github.com" = {
+        user = "git";
+      };
+    };
+  };
+
   programs.zsh = {
   # Let HM manage zsh
   enable = true;
@@ -101,6 +119,11 @@
     bindkey  "^[OH"   beginning-of-line #pos1
     bindkey  "^[OF"   end-of-line #end
     bindkey  "^[[3~"  delete-char #del
+
+    # Load all _sk ssh keys at shell start
+    # they don't need passwords to unlock since they are used interactively with the security key
+    # This allows us to use multiple alternative ssh keys depending on which security key is plugged in
+    find ~/.ssh/ -name '*_sk' | xargs ssh-add
   '';
 
   shellAliases = {
