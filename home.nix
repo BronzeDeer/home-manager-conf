@@ -28,6 +28,7 @@
       quicklog = "log --oneline --graph --decorate";
       fpush = "push --force-with-lease --force-if-includes";
       ffmerge = "merge --ff-only";
+      fap = "fetch --all --prune";
     };
     extraConfig = {
       pull.rebase = true;
