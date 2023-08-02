@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
       # Monitor setup
       ./autorandr.nix
+      # Enable Pipewire for sound
+      ./pipewire
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
