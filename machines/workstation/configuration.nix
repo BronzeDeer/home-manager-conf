@@ -8,10 +8,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Monitor setup
+      ./autorandr.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = false;
@@ -56,11 +58,23 @@
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = true;
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.desktopManager = {
     xterm.enable = false;
   };
+  services.xserver.videoDrivers = ["nvidia"];
   services.xserver.displayManager.defaultSession = "none+i3";
   services.xserver.windowManager.i3 = {
     enable = true;
