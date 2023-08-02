@@ -91,6 +91,11 @@
     recursive = true;
   };
 
+  home.file.i3Config = {
+    source = ./i3/config;
+    target = ".config/i3/config";
+  };
+
   programs.ssh = {
     enable = true;
     controlMaster = "auto";
