@@ -14,6 +14,7 @@
       ./pipewire
       # Steam needs to be enabled on system-level due to firewall changes among other things
       ./steam
+      ./bluetooth
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
