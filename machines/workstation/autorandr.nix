@@ -23,20 +23,30 @@
             position = "0x0";
             mode = "1920x1080";
             rate = "60.00";
+            transform = [
+              [ 2.0 0.0 0.0 ]
+              [ 0.0 2.0 0.0 ]
+              [ 0.0 0.0 1.0 ]
+            ];
           };
           DP-4 = {
             enable = true;
             primary = true;
-            position = "1920x0";
+            position = "3840x0";
             mode = "3840x2160";
             rate = "60.00";
           };
           HDMI-0 = {
             enable = true;
             primary = false;
-            position = "5760x0";
+            position = "7680x0";
             mode = "1920x1080";
             rate = "60.00";
+            transform = [
+              [ 2.0 0.0 0.0 ]
+              [ 0.0 2.0 0.0 ]
+              [ 0.0 0.0 1.0 ]
+            ];
           };
         };
       };
