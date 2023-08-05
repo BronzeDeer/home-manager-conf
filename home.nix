@@ -115,12 +115,27 @@
   enableCompletion = false;
 
   initExtraBeforeCompInit = ''
-    zstyle ':autocomplete:*' fzf-completion yes
-    zstyle ':autocomplete:*' insert-unambiguous yes
-    zstyle ':autocomplete:*' widget-style menu-select
   '';
 
   initExtra = ''
+    zstyle ':autocomplete:*' fzf-completion yes
+
+    # Use down arrow to jump into the possible selections
+    bindkey '^[OB' menu-select
+    # When inside menuselection, use tab and shift tab to cycle
+    bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+
+    # Insert unambigous prefix first before completing
+    # all Tab widgets
+    zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
+    # all history widgets
+    zstyle ':autocomplete:*history*:*' insert-unambiguous yes
+    # ^S
+    zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
+
+    # include "." and ".." in completion output
+    zstyle ':completion:*:paths' special-dirs true
+
     source <(kubectl completion zsh)
 
     # Fix pos1, end etc. for terminal emulator
@@ -155,7 +170,7 @@
       # { name = "plugins/"; tags = [from:oh-my-zsh]; }
       { name = "zsh-users/zsh-syntax-highlighting"; tags = []; }
       { name = "plugins/zsh-autosuggestions"; tags = [from:oh-my-zsh]; }
-      { name = "marlonrichert/zsh-autocomplete"; }
+      { name = "marlonrichert/zsh-autocomplete"; tags= [ at:23.07.13 ];}
       { name = "kutsan/zsh-system-clipboard"; }  # IMPORTANT
       { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       { name = "~/p10k-config/"; tags = [ from:local use:.p10k.zsh ]; }
