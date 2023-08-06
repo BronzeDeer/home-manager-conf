@@ -33,6 +33,7 @@
 
       modules = [
         ./home.nix
+        ./programs/user/kubernetes
       ];
     };
   };

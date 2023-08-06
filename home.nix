@@ -136,8 +136,6 @@
     # include "." and ".." in completion output
     zstyle ':completion:*:paths' special-dirs true
 
-    source <(kubectl completion zsh)
-
     # Fix pos1, end etc. for terminal emulator
     bindkey  "^[OH"   beginning-of-line #pos1
     bindkey  "^[OF"   end-of-line #end
