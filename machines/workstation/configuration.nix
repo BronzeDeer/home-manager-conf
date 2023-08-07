@@ -40,8 +40,12 @@
       device = "/dev/disk/by-uuid/92bba448-36e4-4096-ba42-e0858e21778a";
       preLVM = true;
       allowDiscards = true;
+      # Allow unlocking cryptroot with fido2 device if enrolled
+      crypttabExtraOpts = [ "fido2-device=auto"];
     };
   };
+  # Allow unlocking cryptroot with fido2 device if enrolled
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = "nixos-workstation"; # Define your hostname.
   # Pick only one of the below networking options.
