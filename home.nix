@@ -140,6 +140,8 @@
     bindkey  "^[OH"   beginning-of-line #pos1
     bindkey  "^[OF"   end-of-line #end
     bindkey  "^[[3~"  delete-char #del
+    bindkey "^[[1;5C" forward-word # Ctrl-RArrow
+    bindkey "^[[1;5D" backward-word # Ctrl-LArrow
 
     # Load all _sk ssh keys at shell start
     # they don't need passwords to unlock since they are used interactively with the security key
