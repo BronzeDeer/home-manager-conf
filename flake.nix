@@ -34,6 +34,8 @@
       modules = [
         ./home.nix
         ./programs/user/kubernetes
+        ./programs/user/xmonad
+        ./programs/user/picom
       ];
     };
   };
