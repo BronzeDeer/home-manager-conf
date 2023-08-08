@@ -33,11 +33,11 @@
 
       modules = [
         ./home.nix
-        ./programs/user/kubernetes
-        ./programs/user/xmonad
-        ./programs/user/picom
-        ./programs/user/social
-        ./programs/user/gtk
+        ./modules/user/kubernetes
+        ./modules/user/xmonad
+        ./modules/user/picom
+        ./modules/user/social
+        ./modules/user/gtk
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
