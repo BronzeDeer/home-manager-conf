@@ -38,6 +38,7 @@
         ./modules/user/picom
         ./modules/user/social
         ./modules/user/gtk
+        ./modules/user/kitty
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };

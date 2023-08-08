@@ -50,54 +50,7 @@
     };
   };
 
-  # Allow importing fonts for p10k
-  fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    # Install a nerdfont patches verison of our desired Font (FiraCode)
-    (nerdfonts.override { fonts = ["FiraCode"];})
-  ];
-
   xsession.numlock.enable = true;
-
-  programs.gnome-terminal = {
-    enable = true;
-    profile = {
-      # Gnome Terminal expects UUIDs for the profiles
-      "3ba303cf-768b-42e1-854f-bccf272bcddd" = {
-
-        default = true;
-        # Format is "<FontName> <FontSize>"
-        font = "FiraCode Nerd Font Mono 12";
-        visibleName = "ZSH Powerlevel10k";
-        colors = {
-          highlight.background = theming.bg-primary-bright;
-          highlight.foreground = theming.fg-primary-bright;
-          
-          backgroundColor = theming.bg-primary;
-          foregroundColor = theming.fg-primary;
-
-          palette = [
-            "${theming.black}"
-            "${theming.red}"
-            "${theming.green}"
-            "${theming.yellow}"
-            "${theming.blue}"
-            "${theming.magenta}"
-            "${theming.cyan}"
-            "${theming.white}"
-            "${theming.bright-black}"
-            "${theming.bright-red}"
-            "${theming.bright-green}"
-            "${theming.bright-yellow}"
-            "${theming.bright-blue}"
-            "${theming.bright-magenta}"
-            "${theming.bright-cyan}"
-            "${theming.bright-white}"
-          ];
-        };
-      };
-    };
-  };
 
   # Import p10k config
   home.file.p10kconf = {

@@ -38,7 +38,7 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
     ]
 
 myTerminal :: String
-myTerminal = "gnome-terminal"
+myTerminal = "kitty"
 
 myLayoutHook =
   avoidStruts -- Do not cover up system bar etc.
