@@ -36,6 +36,7 @@
         ./programs/user/kubernetes
         ./programs/user/xmonad
         ./programs/user/picom
+        ./programs/user/social
       ];
     };
   };
