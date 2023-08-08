@@ -37,7 +37,10 @@
         ./programs/user/xmonad
         ./programs/user/picom
         ./programs/user/social
+        ./programs/user/gtk
       ];
+
+      extraSpecialArgs = { theming = import themes/tokyonight.nix; };
     };
   };
 }

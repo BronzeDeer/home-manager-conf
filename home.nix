@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, theming, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -69,7 +69,33 @@
         # Format is "<FontName> <FontSize>"
         font = "FiraCode Nerd Font Mono 12";
         visibleName = "ZSH Powerlevel10k";
+        colors = {
+          highlight.background = theming.bg-primary-bright;
+          highlight.foreground = theming.fg-primary-bright;
+          
+          backgroundColor = theming.bg-primary;
+          foregroundColor = theming.fg-primary;
+
+          palette = [
+            "${theming.black}"
+            "${theming.red}"
+            "${theming.green}"
+            "${theming.yellow}"
+            "${theming.blue}"
+            "${theming.magenta}"
+            "${theming.cyan}"
+            "${theming.white}"
+            "${theming.bright-black}"
+            "${theming.bright-red}"
+            "${theming.bright-green}"
+            "${theming.bright-yellow}"
+            "${theming.bright-blue}"
+            "${theming.bright-magenta}"
+            "${theming.bright-cyan}"
+            "${theming.bright-white}"
+          ];
         };
+      };
     };
   };
 

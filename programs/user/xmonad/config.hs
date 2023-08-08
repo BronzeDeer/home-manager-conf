@@ -26,6 +26,9 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
     { modMask = mod4Mask  -- Rebind Mod to the Super key
       , terminal = myTerminal
       , layoutHook = myLayoutHook
+        -- NOTE: Injected using nix strings.
+      , focusedBorderColor = myFocusedBorderColor
+      , normalBorderColor = myNormalBorderColor
     }
   -- Bind extra keys
   `additionalKeysP`
