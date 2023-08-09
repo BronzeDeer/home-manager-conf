@@ -133,7 +133,9 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal
       xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
     ];
+    configPackages = [ pkgs.gnome.gnome-session ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
