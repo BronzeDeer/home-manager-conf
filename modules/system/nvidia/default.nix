@@ -2,15 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Allow setting fancurves for nvidia gpu
-    (gwe.overrideAttrs ( old: {
-      version = "0.15.5";
-      src = fetchFromGitLab {
-        owner = "leinardi";
-        repo = old.pname;
-        rev = "0.15.5";
-        sha256 = "sha256-bey/G+muDZsMMU3lVdNS6E/BnAJr29zLPE0MMT4sh1c=";
-      };
-    }))
+    gwe
     # Needed by some packages to support cuda acceleration
     cudaPackages.cudatoolkit
   ];
