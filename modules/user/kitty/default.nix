@@ -14,7 +14,7 @@
   programs.kitty = {
     enable = true;
 
-    font.name = "FiraCode Nerd Font Mono 12";
+    font.name = "FiraCode Nerd Font Mono";
     font.size = 10;
     shellIntegration.enableZshIntegration = true ;
     #theme = "${theming.kitty-theme}";
