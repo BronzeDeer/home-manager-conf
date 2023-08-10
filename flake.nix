@@ -39,6 +39,7 @@
         ./modules/user/social
         ./modules/user/gtk
         ./modules/user/kitty
+        ./modules/user/betterlockscreen
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };

@@ -32,7 +32,7 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
     }
   -- Bind extra keys
   `additionalKeysP`
-    [ ("M1-C-l", spawn "xscreensaver-command -lock") -- Ctrl+Alt+l locks
+    [ ("M1-C-l", spawn "betterlockscreen --wall --blur -l") -- Ctrl+Alt+l locks
   --  , ("S-<Print>", unGrab *> spawn "scrot -s"        ) -- Shift+Print screen shots current window
     , ("C-M1-t"  , spawn myTerminal                   ) -- Ctrl+Alt+t spawns terminal
     ]
