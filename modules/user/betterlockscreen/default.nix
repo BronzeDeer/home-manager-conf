@@ -1,6 +1,6 @@
 {
   services.betterlockscreen = {
     enable = true;
-    inactiveInterval = 10;
+    inactiveInterval = 30;
   };
 }
