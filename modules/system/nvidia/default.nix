@@ -1,5 +1,9 @@
 {config, pkgs, ...}:
 {
+  environment.systemPackages = with pkgs; [
+    # Allow setting fancurves for nvidia gpu
+    gwe
+  ];
 
   hardware.opengl = {
     enable = true;
