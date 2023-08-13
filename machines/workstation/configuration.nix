@@ -67,23 +67,11 @@
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    nvidiaSettings = true;
-  };
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.desktopManager = {
     xterm.enable = false;
   };
-  services.xserver.videoDrivers = ["nvidia"];
   services.xserver.displayManager.defaultSession = "none+i3";
   services.xserver.windowManager.i3 = {
     enable = true;

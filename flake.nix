@@ -25,6 +25,7 @@
 
         modules = [
           ./machines/workstation/configuration.nix
+          ./modules/system/nvidia
         ];
       };
     };
