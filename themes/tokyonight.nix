@@ -9,6 +9,7 @@ rec {
   gtk-icon-name = "Moka";
 
   font-name = "TeX Gyre Heros";
+  font-size = 16;
 
   bg-primary = "#24283b";
   bg-primary-bright = "#1f2335";

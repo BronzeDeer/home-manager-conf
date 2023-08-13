@@ -35,6 +35,8 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
     [ ("M1-C-l", spawn "betterlockscreen --wall --blur -l") -- Ctrl+Alt+l locks
   --  , ("S-<Print>", unGrab *> spawn "scrot -s"        ) -- Shift+Print screen shots current window
     , ("C-M1-t"  , spawn myTerminal                   ) -- Ctrl+Alt+t spawns terminal
+    , ("C-<Space>", spawn "rofi -show drun -theme grid") -- Ctrl+Space spawns rofi launcher
+    , ("C-<Tab>", spawn "rofi -show emoji -theme grid") -- Ctrl+Tab spawn rofi emoji picker
     ]
 
 myTerminal :: String
