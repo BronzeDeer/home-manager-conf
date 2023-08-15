@@ -104,7 +104,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.joel = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel" # Enable ‘sudo’ for the user.
+      "docker" # Enable interacting with the docker daemon
+    ];
     packages = with pkgs; [
       firefox
       tree

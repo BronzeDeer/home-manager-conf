@@ -18,4 +18,7 @@
     powerManagement.enable = true;
   };
   services.xserver.videoDrivers = ["nvidia"];
+
+  # Enable using gpu in containers
+  virtualisation.docker.enableNvidia = true;
 }
