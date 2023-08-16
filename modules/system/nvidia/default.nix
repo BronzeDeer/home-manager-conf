@@ -3,7 +3,12 @@
   environment.systemPackages = with pkgs; [
     # Allow setting fancurves for nvidia gpu
     gwe
+    # Needed by some packages to support cuda acceleration
+    cudaPackages.cudatoolkit
   ];
+
+  # Allow building nixpkgs with the (unfree) cuda support
+  nixpkgs.config.cudaSupport = true;
 
   hardware.opengl = {
     enable = true;
