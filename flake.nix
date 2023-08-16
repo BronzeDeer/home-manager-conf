@@ -27,6 +27,7 @@
           ./machines/workstation/configuration.nix
           ./modules/system/nvidia
           ./modules/system/docker
+          ./modules/system/file-manager-support
         ];
       };
     };
