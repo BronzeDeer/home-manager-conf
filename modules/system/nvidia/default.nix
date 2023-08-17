@@ -14,6 +14,11 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      # Video acceleration
+      nvidia-vaapi-driver
+      vaapiVdpau
+    ];
   };
 
   hardware.nvidia = {
