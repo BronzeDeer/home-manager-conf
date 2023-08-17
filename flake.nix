@@ -47,6 +47,7 @@
         ./modules/user/betterlockscreen
         ./modules/user/rofi
         ./modules/user/file-manager
+        ./modules/user/vlc
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
