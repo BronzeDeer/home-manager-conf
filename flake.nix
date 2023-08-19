@@ -49,6 +49,7 @@
         ./modules/user/file-manager
         ./modules/user/vlc
         ./modules/user/chromium
+        ./modules/user/dropbox
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
