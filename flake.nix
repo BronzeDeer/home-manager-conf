@@ -48,6 +48,7 @@
         ./modules/user/rofi
         ./modules/user/file-manager
         ./modules/user/vlc
+        ./modules/user/chromium
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
