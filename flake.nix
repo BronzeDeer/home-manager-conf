@@ -50,6 +50,7 @@
         ./modules/user/vlc
         ./modules/user/chromium
         ./modules/user/dropbox
+        ./modules/user/vscode
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
