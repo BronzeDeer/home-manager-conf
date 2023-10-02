@@ -30,6 +30,7 @@
           ./modules/system/file-manager-support
           # Needs to be included on system level due to optional cuda Support in nixpkgs.config
           ./modules/system/blender
+          ./modules/system/printing
         ];
       };
     };

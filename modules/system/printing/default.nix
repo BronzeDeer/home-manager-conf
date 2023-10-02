@@ -1,0 +1,14 @@
+{config, pkgs, ...}:
+{
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # for a WiFi printer
+  services.avahi.openFirewall = true;
+
+  # Enable scanner support
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+  # Simple graphical scanning utility
+  environment.systemPackages = [ pkgs.gnome.simple-scan ];
+}

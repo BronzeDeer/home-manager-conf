@@ -107,6 +107,7 @@
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
       "docker" # Enable interacting with the docker daemon
+      "scanner" "lp" #Enable interacting with scanners
     ];
     packages = with pkgs; [
       firefox
