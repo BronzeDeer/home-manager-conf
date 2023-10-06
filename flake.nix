@@ -55,6 +55,7 @@
         ./modules/user/vscode
         ./modules/user/blugon
         ./modules/user/basic-tools
+        ./modules/user/deadd
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
