@@ -52,6 +52,7 @@
         ./modules/user/chromium
         ./modules/user/dropbox
         ./modules/user/vscode
+        ./modules/user/blugon
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
