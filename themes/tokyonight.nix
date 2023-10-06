@@ -41,4 +41,6 @@ rec {
   bright-magenta = "#bb9af7";
   bright-cyan = "#7dcfff";
   bright-white = "#c0caf5";
+
+  deadd-css-file = ../modules/user/deadd/tokyonight.css;
 }

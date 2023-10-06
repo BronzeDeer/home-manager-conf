@@ -58,6 +58,7 @@
         ./modules/user/libation
         ./modules/user/auto-start
         ./modules/user/blueman-autostart
+        ./modules/user/deadd
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
