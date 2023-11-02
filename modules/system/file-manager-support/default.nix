@@ -1,5 +1,10 @@
 {config, pkgs, ...}:
 {
+  environment.systemPackages = with pkgs; [
+    #Needed for mtp mounts
+    jmtpfs
+  ];
+
   # Enable auto-mounting of disks
   services.udisks2.enable = true;
 
