@@ -31,6 +31,7 @@
           # Needs to be included on system level due to optional cuda Support in nixpkgs.config
           ./modules/system/blender
           ./modules/system/printing
+          ./modules/system/nix-storage-optimisation
         ];
       };
     };
