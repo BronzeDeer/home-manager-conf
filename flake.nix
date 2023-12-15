@@ -54,6 +54,7 @@
         ./modules/user/dropbox
         ./modules/user/vscode
         ./modules/user/blugon
+        ./modules/user/basic-tools
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
