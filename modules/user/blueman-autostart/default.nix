@@ -1,0 +1,5 @@
+{
+  userautostart.scriptInline = ''
+    blueman-applet &
+  '';
+}
