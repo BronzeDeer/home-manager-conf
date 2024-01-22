@@ -19,6 +19,10 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.Minimize
 import XMonad.Layout.BoringWindows
 
+-- Allows parts of the startupHook to only run on session start
+import XMonad.Util.SessionStart
+import XMonad.Util.SpawnOnce (spawnOnce)
+
 import System.Taffybar.Support.PagerHints (pagerHints)
 
 main:: IO ()
@@ -29,6 +33,7 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
         -- NOTE: Injected using nix strings.
       , focusedBorderColor = myFocusedBorderColor
       , normalBorderColor = myNormalBorderColor
+      , startupHook = myStartupHook
     }
   -- Bind extra keys
   `additionalKeysP`
@@ -52,3 +57,7 @@ myLayoutHook =
     nmaster = 1      -- Default number of windows in the master pane
     delta   = 3/100  -- Percent of screen to increment by when resizing panes
     ratio   = 1/2    -- Default proportion of screen occupied by master pane
+
+myStartupHook :: X()
+myStartupHook =
+  doOnce $ spawnOnce autostartEntrypoint

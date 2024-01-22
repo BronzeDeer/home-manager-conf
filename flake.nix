@@ -56,6 +56,7 @@
         ./modules/user/blugon
         ./modules/user/basic-tools
         ./modules/user/libation
+        ./modules/user/auto-start
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
