@@ -5,6 +5,8 @@
     xfce.thunar
     # Support to automatic volume management of drives and media (like mtp)
     xfce.thunar-volman
+    # Allow compressing from gui
+    xfce.thunar-archive-plugin
   ];
 
   # Make thunar default for opening directories
