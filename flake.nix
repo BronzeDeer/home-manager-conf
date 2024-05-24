@@ -61,6 +61,7 @@
         ./modules/user/blueman-autostart
         ./modules/user/deadd
         ./modules/user/ausweisapp
+        ./modules/user/keepassxc
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
