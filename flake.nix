@@ -32,6 +32,7 @@
           ./modules/system/blender
           ./modules/system/printing
           ./modules/system/nix-storage-optimisation
+          ./modules/system/ausweisapp-firewall
         ];
       };
     };
@@ -59,6 +60,7 @@
         ./modules/user/auto-start
         ./modules/user/blueman-autostart
         ./modules/user/deadd
+        ./modules/user/ausweisapp
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
