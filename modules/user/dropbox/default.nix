@@ -5,4 +5,8 @@
     maestral
     maestral-gui
   ];
+
+  userautostart.scriptInline = ''
+    maestral &
+  '';
 }
