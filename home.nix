@@ -146,6 +146,7 @@
       { name = "plugins/ripgrep";           tags = [from:oh-my-zsh]; }
       { name = "plugins/vi-mode";           tags = [from:oh-my-zsh]; }
       { name = "plugins/direnv";            tags = [from:oh-my-zsh]; }
+      { name = "plugins/gradle";            tags = [from:oh-my-zsh]; }
       # { name = "plugins/"; tags = [from:oh-my-zsh]; }
       { name = "zsh-users/zsh-syntax-highlighting"; tags = []; }
       { name = "plugins/zsh-autosuggestions"; tags = [from:oh-my-zsh]; }
