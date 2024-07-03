@@ -18,6 +18,7 @@ in
       "100:class_g   *?= 'Firefox'"
       "100:class_g   *?= 'Deadd-notification-center'"
       "100:class_g   *?= 'Rofi'"
+      "100:fullscreen"
     ];
 
     # Fading
