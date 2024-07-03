@@ -63,6 +63,7 @@
         ./modules/user/ausweisapp
         ./modules/user/keepassxc
         ./modules/user/libreoffice
+        ./modules/user/gwe
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
