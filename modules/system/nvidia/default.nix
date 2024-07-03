@@ -21,6 +21,9 @@
     ];
   };
 
+  #libva doesn't seem to be able to query for the driver correctly, so we have to hint which driver we want
+  environment.sessionVariables = { LIBVA_DRIVER_NAME="nvidia"; };
+
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
