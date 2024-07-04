@@ -27,5 +27,9 @@ with lib;
     );
   };
 
+  # Ensure that PATH is propagated to user services like xdg-portal
+  # Note that importedVariables is a hidden option that is used mostly internally by home-manager moduls
+  xsession.importedVariables = ["PATH"];
+
   services.taffybar.enable = true;
 }
