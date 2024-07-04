@@ -64,6 +64,7 @@
         ./modules/user/keepassxc
         ./modules/user/libreoffice
         ./modules/user/gwe
+        ./modules/user/xdg-portal
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
