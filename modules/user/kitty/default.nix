@@ -14,6 +14,8 @@
   programs.kitty = {
     enable = true;
 
+    package = (config.lib.nixGL.wrap pkgs.kitty);
+
     font.name = "FiraCode Nerd Font Mono";
     font.size = 10;
     shellIntegration.enableZshIntegration = true ;
