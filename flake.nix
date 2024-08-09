@@ -5,15 +5,25 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Helper wrapper to fix OpenGL kerfuffle when running glx apps on non-nixos
+    nixgl.url = "github:nix-community/nixGL";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
+
+
+
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, home-manager, nixgl }:
   let
     system = "x86_64-linux";
 
     pkgs = import nixpkgs{
       inherit system;
       config = { allowUnfree = true; };
+      overlays = [
+        nixgl.overlay
+      ];
     };
 
    lib = nixpkgs.lib;
@@ -41,6 +51,7 @@
 
       modules = [
         ./home.nix
+        ./modules/user/nixGL
         ./modules/user/kubernetes
         ./modules/user/xmonad
         ./modules/user/picom
