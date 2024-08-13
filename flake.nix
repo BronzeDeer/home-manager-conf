@@ -78,6 +78,27 @@
         ./modules/user/xdg-portal
       ];
 
+
+      extraSpecialArgs = { theming = import themes/tokyonight.nix; };
+    };
+    homeConfigurations.work = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./work-home.nix
+        ./modules/user/nixGL
+        ./modules/user/kubernetes
+        ./modules/user/kitty
+        ./modules/user/vlc
+        ./modules/user/vscode
+        ./modules/user/basic-tools
+        ./modules/user/libreoffice
+        ./modules/user/gwe
+        ./modules/user/auto-start
+        ./modules/user/chromium-webappify
+        ./modules/work/webapps
+      ];
+
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
     };
   };
