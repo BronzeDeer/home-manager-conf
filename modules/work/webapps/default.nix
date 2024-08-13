@@ -1,5 +1,4 @@
 {
-    #webappify.dataDirBase = "/home/jpe/.webappify-browser-profiles";
     webappify.apps = [
         rec { url = "https://outlook.office.com/"; name = "Outlook"; icon = (builtins.fetchurl { url = url + "favicon.ico"; sha256="sha256:0ifbq7x8zglm8ddwnliwxy2k9ryzjhns3cgmdylyrmlld2vr8pg3";} ); }
         rec { url = "https://teams.microsoft.com/"; name = "Teams"; icon = (builtins.fetchurl { url = url + "favicon.ico"; sha256="sha256:08m8slwwazf185p0vwgjnqrdi3sxm4yigxdln1bybxqv9vsdszir";} ); }
