@@ -96,5 +96,25 @@
           inherit pkgs;
       }; };
     };
+
+    homeConfigurations.jpe = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./users/work
+        {
+          # When imported via the nixos module those values get set automatically based on how the host is configured
+          # For the standalone version we need to specify username and home path
+          home.username = "jpe";
+          home.homeDirectory = "/home/jpe";
+        }
+      ];
+
+      extraSpecialArgs = {
+        inherit nixgl;
+        theming = import themes/tokyonight.nix {
+          inherit pkgs;
+      }; };
+    };
   };
 }
