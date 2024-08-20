@@ -96,6 +96,7 @@
         ./modules/user/auto-start
         ./modules/user/chromium-webappify
         ./modules/work/webapps
+        ./modules/user/azure
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
