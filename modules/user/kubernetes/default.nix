@@ -11,6 +11,7 @@
     kubectl
     kubectx
     kustomize
+    kubernetes-helm
     yq-go
     k9s
   ];
