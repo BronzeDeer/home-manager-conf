@@ -14,6 +14,7 @@
     ../../modules/user/chromium-webappify
     ../../modules/work/webapps
     ../../modules/user/zsh
+    ../../modules/user/azure
   ];
 
 
