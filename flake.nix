@@ -90,7 +90,6 @@
         ./modules/user/kubernetes
         ./modules/user/kitty
         ./modules/user/vlc
-        ./modules/user/vscode
         ./modules/user/basic-tools
         ./modules/user/libreoffice
         ./modules/user/gwe
