@@ -2,6 +2,7 @@
 {config, pkgs, ...}:
 {
   environment.systemPackages = with pkgs; [
-    blender
+    # If our custom options exists and is true, enable cudaSupport
+    (blender.override { cudaSupport = (builtins.hasAttr "_cudaSupportAvailable" config) && config._cudaSupportAvailable ;})
   ];
 }
