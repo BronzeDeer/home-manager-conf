@@ -10,10 +10,9 @@
   # Allow building nixpkgs with the (unfree) cuda support
   nixpkgs.config.cudaSupport = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       # Video acceleration
       nvidia-vaapi-driver
@@ -29,9 +28,10 @@
     nvidiaSettings = true;
     # Experimental support for better resume from sleep
     powerManagement.enable = true;
+    open = false;
   };
   services.xserver.videoDrivers = ["nvidia"];
 
   # Enable using gpu in containers
-  virtualisation.docker.enableNvidia = true;
+  hardware.nvidia-container-toolkit.enable = true;
 }

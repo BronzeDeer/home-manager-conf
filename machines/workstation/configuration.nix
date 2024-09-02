@@ -146,7 +146,7 @@
   };
 
   # Tell user we are waiting for u2f input/touch
-  security.pam.u2f.cue = true;
+  security.pam.u2f.settings.cue = true;
 
   # List services that you want to enable:
 

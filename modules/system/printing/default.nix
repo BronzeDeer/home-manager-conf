@@ -11,5 +11,5 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
   # Simple graphical scanning utility
-  environment.systemPackages = [ pkgs.gnome.simple-scan ];
+  environment.systemPackages = [ pkgs.simple-scan ];
 }

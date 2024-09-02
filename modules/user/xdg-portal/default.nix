@@ -9,6 +9,6 @@
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
     ];
-    configPackages = [ pkgs.gnome.gnome-session ];
+    configPackages = [ pkgs.gnome-session ];
   };
 }

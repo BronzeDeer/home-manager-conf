@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-  # Do not use default sound enable, conflicts with pipewire
-  sound.enable = false;
 
   security.rtkit.enable = true;
   services.pipewire = {
