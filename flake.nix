@@ -43,6 +43,7 @@
           ./modules/system/printing
           ./modules/system/nix-storage-optimisation
           ./modules/system/ausweisapp-firewall
+          ./modules/system/cuda-maintainers-cache
         ];
       };
     };
