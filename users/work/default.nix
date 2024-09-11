@@ -15,6 +15,7 @@
     ../../modules/work/webapps
     ../../modules/user/zsh
     ../../modules/user/azure
+    ../../modules/user/keepassxc
   ];
 
 
