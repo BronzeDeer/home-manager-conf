@@ -10,11 +10,19 @@
     nixgl.url = "github:nix-community/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Agenix allows for secrets management in a "GitOps" way
+    # agenix-rekey allows using a single master identity (backed by a yubikey) and transparent cached rekeying for every host
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+    # Make sure to override the nixpkgs version to follow your flake,
+    # otherwise derivation paths can mismatch (when using storageMode = "derivation"),
+    # resulting in the rekeyed secrets not being found!
+    agenix-rekey.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl }:
+  outputs = { self, nixpkgs, home-manager, nixgl, agenix, agenix-rekey }:
   let
     system = "x86_64-linux";
 
@@ -35,6 +43,7 @@
           };
         });
       })
+        agenix-rekey.overlays.default
       ];
     };
 
@@ -47,6 +56,9 @@
         inherit pkgs;
 
         modules = [
+          agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
+
           ./machines/workstation/configuration.nix
           ./modules/system/nvidia
           ./modules/system/docker
@@ -95,6 +107,7 @@
         ./modules/user/email
         ./modules/user/zsh
         ./modules/user/neovim
+        ./modules/user/passage
       ];
 
       extraSpecialArgs = {
@@ -102,6 +115,43 @@
         theming = import themes/tokyonight.nix {
           inherit pkgs;
       }; };
+    };
+
+    # Expose the necessary information in your flake so agenix-rekey
+    # knows where it has too look for secrets and paths.
+    #
+    # Make sure that the pkgs passed here comes from the same nixpkgs version as
+    # the pkgs used on your hosts in `nixosConfigurations`, otherwise the rekeyed
+    # derivations will not be found!
+    agenix-rekey = agenix-rekey.configure {
+      userFlake = self;
+      nodes = self.nixosConfigurations;
+      # Example for colmena:
+      # inherit ((colmena.lib.makeHive self.colmena).introspect (x: x)) nodes;
+    };
+
+
+    # TODO: Make OS/ARCH independent via flake-utils
+    devShells.${system}.default = pkgs.mkShell {
+      packages = [
+        # Expose the wrapped agenix-rekey cli needed for encrypting and rekeying
+        pkgs.agenix-rekey
+
+        pkgs.passage
+      ];
+
+      shellHook = ''
+        # Override PASSAGE ENV VARs to point to the read/write-able store in repo copy on disk
+        # shellHooks always run with PWD=<flake root>
+
+        # TODO: Unify with agenix-conf (have module dispense modules for home-manager, devShell, and systemConfig)
+
+        export PASSAGE_DIR="$PWD/secrets/passage/joel"
+        export PASSAGE_IDENTITIES_FILE="$PWD/age-identities/age-yubikey-5c-primary-identity-c8d44732.pub"
+
+        # scan in identities from age-identities (i.e. encrypt to master and backup)
+        export PASSAGE_RECIPIENTS=`cat $PWD/age-identities/* | grep Recipient: | cut -d ':' -f2 | tr -d ' ' | tr "\n" ' '`
+      '';
     };
   };
 }
