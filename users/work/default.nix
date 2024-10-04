@@ -48,6 +48,28 @@
       ffmerge = "merge --ff-only";
       fap = "fetch --all --prune";
     };
+
+    # TODO: doesn't work correctly yet
+    includes = (builtins.map (urlGlob:
+      # Conditionally overwrite user when commiting to my own repos
+      {
+        condition = "hasconfig:remote.*.url:${urlGlob}";
+        contents = {
+          user.email = "pepper@bronze-deer.de";
+          user.name = "Joel Pepper";
+        };
+      })
+      [
+        "git@github.com/BronzeDeer/**"
+        "git@github.com:BronzeDeer/**"
+        "git+ssh://git@github.com/BronzeDeer/**"
+        "ssh://git@github.com:BronzeDeer/**"
+        "git+ssh://github.com/BronzeDeer/**"
+        "ssh://github.com:BronzeDeer/**"
+        "https://github.com/BronzeDeer/**"
+      ]
+    );
+
     extraConfig = {
       pull.rebase = true;
       rerere.enabled = true;
