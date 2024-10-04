@@ -76,6 +76,7 @@
       pull.rebase = true;
       rerere.enabled = true;
       core.editor = "vim";
+      core.autocrlf = "input";
 
       user = {
         email = "joel.pepper@colenio.com";
