@@ -98,6 +98,7 @@
         ./modules/work/webapps
         ./modules/user/azure
         ./modules/user/keepassxc
+        ./modules/user/rofi
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
