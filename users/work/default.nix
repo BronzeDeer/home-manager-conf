@@ -16,6 +16,7 @@
     ../../modules/user/zsh
     ../../modules/user/azure
     ../../modules/user/keepassxc
+    ../../modules/user/rofi
   ];
 
 
