@@ -59,6 +59,7 @@
         { name = "plugins/direnv";            tags = [from:oh-my-zsh]; }
         { name = "plugins/gradle";            tags = [from:oh-my-zsh]; }
         # { name = "plugins/"; tags = [from:oh-my-zsh]; }
+        { name = "chisui/zsh-nix-shell"; tags= [ "at:82ca15e638cc208e6d8368e34a1625ed75e08f90" ];}
         { name = "zsh-users/zsh-syntax-highlighting"; tags = []; }
         { name = "plugins/zsh-autosuggestions"; tags = [from:oh-my-zsh]; }
         { name = "marlonrichert/zsh-autocomplete"; tags= [ at:24.09.04 ];}
