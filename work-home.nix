@@ -175,6 +175,7 @@
       { name = "zsh-users/zsh-syntax-highlighting"; tags = []; }
       { name = "plugins/zsh-autosuggestions"; tags = [from:oh-my-zsh]; }
       { name = "marlonrichert/zsh-autocomplete"; tags= [ at:23.07.13 ];}
+      { name = "chisui/zsh-nix-shell"; tags= [ "at:82ca15e638cc208e6d8368e34a1625ed75e08f90" ];}
       { name = "kutsan/zsh-system-clipboard"; }  # IMPORTANT
       { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       { name = "~/p10k-config/"; tags = [ from:local use:.p10k.zsh ]; }
