@@ -116,9 +116,14 @@
   # Let HM manage zsh
   enable = true;
 
-  enableCompletion = false;
+  # Note: this will cause home-manager to add an extraneous compinit, because it doesn't detect the zplug one,
+  # but we need this option to get completions for the rest of the system like sysctl etc to be put on the fpath
+  # However, since we are using zsh-autocomplete, we can be certain that compinit is already tombstoned with a no-op anyway
+  enableCompletion = true;
 
   initExtraBeforeCompInit = ''
+    # Add completion functions from the host system, but at the end so that nix installed ones can shadow them
+    fpath+=("/usr/share/zsh/vendor-completions")
   '';
 
   initExtra = ''
