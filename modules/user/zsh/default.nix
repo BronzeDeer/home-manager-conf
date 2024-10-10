@@ -20,6 +20,9 @@
       # Do not try to match previous path segments, this interferes with the unambiguous completion
       zstyle ':completion:*' path-completion false
 
+      # Add completion functions from the host system, but at the end so that nix installed ones can shadow them
+      fpath+=("/usr/share/zsh/vendor-completions")
+
     '' + lib.optionals config.programs.fzf.enable ''
       # We need to manually load fzf before zsh-autocomplete, otherwise breakage can occur, I'm not sure why
       if [[ $options[zle] = on ]]; then
