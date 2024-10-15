@@ -17,6 +17,8 @@
     ../../modules/user/azure
     ../../modules/user/keepassxc
     ../../modules/user/rofi
+    ../../modules/user/jetbrains/java-idea
+    ../../modules/user/jetbrains/python-pycharm
   ];
 
 
