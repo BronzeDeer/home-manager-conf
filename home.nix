@@ -94,9 +94,8 @@
   enableCompletion = false;
 
   initExtraBeforeCompInit = ''
-    # Optimize shell load, until I get time to code this into zsh compat
-    zstyle ':completion-sync:compinit:custom' enabled true
-    zstyle ':completion-sync:compinit:custom' command "source \"$HOME/.zplug/repos/marlonrichert/zsh-autocomplete/zsh-autocomplete.plugin.zsh\""
+    # https://github.com/marlonrichert/zsh-autocomplete/issues/761
+    setopt interactivecomments
   '';
 
   initExtra = ''
@@ -153,11 +152,11 @@
       # { name = "plugins/"; tags = [from:oh-my-zsh]; }
       { name = "zsh-users/zsh-syntax-highlighting"; tags = []; }
       { name = "plugins/zsh-autosuggestions"; tags = [from:oh-my-zsh]; }
-      { name = "marlonrichert/zsh-autocomplete"; tags= [ at:23.07.13 ];}
+      { name = "marlonrichert/zsh-autocomplete"; tags= [ at:24.09.04 ];}
       { name = "kutsan/zsh-system-clipboard"; }  # IMPORTANT
       { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       { name = "~/p10k-config/"; tags = [ from:local use:.p10k.zsh ]; }
-      { name = "BronzeDeer/zsh-completion-sync"; tags = [ at:v0.1.0 defer:3 ];}
+      { name = "BronzeDeer/zsh-completion-sync"; tags = [ at:v0.2.0 defer:3 ];}
     ];
     };
   };
