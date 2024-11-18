@@ -77,6 +77,7 @@
         ./modules/user/libreoffice
         ./modules/user/gwe
         ./modules/user/xdg-portal
+        ./modules/user/email
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
