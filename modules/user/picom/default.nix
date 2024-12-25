@@ -46,6 +46,13 @@ in
       rounded-corners-exclude = [
         "class_g = 'Custom-taffybar'"
       ];
+
+      # Use compositor to avoid tearing in "normal" windows
+      # This allows us to not resort to force composition pipeline or similar in xsettings
+      vsync = true;
+
+      # Allow fullscreen windows to directly paint to the screen, especially useful for games
+      unredir-if-possible = true;
     };
 
   };
