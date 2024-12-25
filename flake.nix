@@ -78,6 +78,7 @@
         ./modules/user/gwe
         ./modules/user/xdg-portal
         ./modules/user/email
+        ./modules/user/zsh
       ];
 
       extraSpecialArgs = { theming = import themes/tokyonight.nix; };
