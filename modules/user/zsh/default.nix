@@ -1,3 +1,4 @@
+{config,pkgs,lib,...}:
 {
   programs.zsh = {
     # Let HM manage zsh
@@ -8,33 +9,33 @@
     initExtraBeforeCompInit = ''
       # https://github.com/marlonrichert/zsh-autocomplete/issues/761
       setopt interactivecomments
+
+      # Insert unambigous prefix first before completing
+      # all widgets
+      zstyle ':autocomplete:*' insert-unambiguous yes
+      # Insert longest prefix instead of insert all common parts of the string
+      # foo.{1,2,3}.bar will complete to "foo." instead of "foo..bar"
+      zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+
+      # Do not try to match previous path segments, this interferes with the unambiguous completion
+      zstyle ':completion:*' path-completion false
+
+    '' + lib.optionals config.programs.fzf.enable ''
+      # We need to manually load fzf before zsh-autocomplete, otherwise breakage can occur, I'm not sure why
+      if [[ $options[zle] = on ]]; then
+        eval "$(${config.programs.fzf.package}/bin/fzf --zsh)"
+      fi
     '';
 
     initExtra = ''
-      zstyle ':autocomplete:*' fzf-completion yes
+      # This zstyle (support?) was either silently dropped or it is supposed to automagically work now (it doesn't)
+      #zstyle ':autocomplete:tab:*' fzf-completion yes
 
-      # Use down arrow to jump into the possible selections
-      bindkey '^[OB' menu-select
-      # When inside menuselection, use tab and shift tab to cycle
-      bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+      source ${./post-zac-hook.zsh}
 
-      # Insert unambigous prefix first before completing
-      # all Tab widgets
-      zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
-      # all history widgets
-      zstyle ':autocomplete:*history*:*' insert-unambiguous yes
-      # ^S
-      zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
-
-      # include "." and ".." in completion output
-      zstyle ':completion:*:paths' special-dirs true
-
-      # Fix pos1, end etc. for terminal emulator
-      bindkey  "^[OH"   beginning-of-line #pos1
-      bindkey  "^[OF"   end-of-line #end
-      bindkey  "^[[3~"  delete-char #del
-      bindkey "^[[1;5C" forward-word # Ctrl-RArrow
-      bindkey "^[[1;5D" backward-word # Ctrl-LArrow
+      # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
+      zstyle ':completion-sync:compinit:custom:post-hook' enabled true
+      zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true";'
     '';
 
     shellAliases = {
@@ -63,7 +64,7 @@
         { name = "kutsan/zsh-system-clipboard"; }  # IMPORTANT
         { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
         { name = "~/p10k-config/"; tags = [ from:local use:.p10k.zsh ]; }
-        { name = "BronzeDeer/zsh-completion-sync"; tags = [ at:v0.2.0 defer:3 ];}
+        { name = "BronzeDeer/zsh-completion-sync"; tags = [ at:v0.3.0 defer:3 ];}
       ];
     };
   };
