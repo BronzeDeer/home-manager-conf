@@ -32,10 +32,11 @@
       #zstyle ':autocomplete:tab:*' fzf-completion yes
 
       source ${./post-zac-hook.zsh}
+      source ${./custom-tilde-completion.zsh}
 
       # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
       zstyle ':completion-sync:compinit:custom:post-hook' enabled true
-      zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true";'
+      zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true"; source ${./custom-tilde-completion.zsh}'
     '';
 
     shellAliases = {
