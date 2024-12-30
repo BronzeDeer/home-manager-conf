@@ -7,6 +7,6 @@
   ];
 
   userautostart.scriptInline = ''
-    maestral &
+    maestral start &
   '';
 }
