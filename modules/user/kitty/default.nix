@@ -8,7 +8,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     # Install a nerdfont patches version of our desired Font (FiraCode)
-    (nerdfonts.override { fonts = ["FiraCode"];})
+    nerd-fonts.fira-code
   ];
 
   programs.kitty = {
