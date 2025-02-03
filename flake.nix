@@ -23,6 +23,18 @@
       config = { allowUnfree = true; };
       overlays = [
         nixgl.overlay
+        (self: super : {
+        # Use yet-unmerged fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
+        autorandr = super.autorandr.overrideAttrs (old: {
+          version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+          src = super.fetchFromGitHub {
+            owner = "phillipberndt";
+            repo = "autorandr";
+            rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+            hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
+          };
+        });
+      })
       ];
     };
 
