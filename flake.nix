@@ -32,6 +32,7 @@
     nixosConfigurations = {
       nixos-workstation = lib.nixosSystem {
         inherit system;
+        inherit pkgs;
 
         modules = [
           ./machines/workstation/configuration.nix
