@@ -11,7 +11,7 @@
     kubectl
     kubectx
     kustomize
-    yq
+    yq-go
     k9s
   ];
 
