@@ -8,5 +8,7 @@ in
         nixGLPackage
     ];
 
-    nixGL.prefix = "${nixGLPackage}/bin/nixGLIntel";
+    nixGL = {
+        defaultWrapper = "mesa"; # choose from options
+    };
 }

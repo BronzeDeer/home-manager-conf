@@ -82,7 +82,10 @@
         ./modules/user/zsh
       ];
 
-      extraSpecialArgs = { theming = import themes/tokyonight.nix; };
+      extraSpecialArgs = {
+        inherit nixgl;
+        theming = import themes/tokyonight.nix;
+      };
     };
   };
 }
