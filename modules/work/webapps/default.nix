@@ -7,4 +7,6 @@
         # https://outlook.office.com/bookings/calendar
         rec { url = "https://outlook.office.com/bookings/calendar/"; name = "Bookings"; icon = (builtins.fetchurl { url = https://res.public.onecdn.static.microsoft/owamail/20240920004.12/resources/images/favicon-bookings.ico; sha256="sha256:1jnxzq5ddbnbjb09y9m818f9lkcd7cza6cbvqa0n9lfl67rac2gv";} ); }
     ];
+    webappify.browserCommand="flatpak run org.chromium.Chromium --flag-switches-begin --disable-features=WebRtcAllowInputVolumeAdjustment --flag-switches-end";
+    webappify.appIdPrefix="org.chromium.Chromium";
 }
