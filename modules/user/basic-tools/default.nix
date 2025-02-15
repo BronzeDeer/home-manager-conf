@@ -12,5 +12,7 @@
 
     file # file identifier
     ncdu # ncurses disk usage explorer
+
+    gnome-screenshot
   ];
 }
