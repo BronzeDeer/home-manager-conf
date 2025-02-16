@@ -1,7 +1,7 @@
 import XMonad
 
 import XMonad.Util.EZConfig
-import XMonad.Util.Ungrab
+import XMonad.Operations (unGrab)
 
 -- Make xmonad ewmh compliant
 import XMonad.Hooks.EwmhDesktops
@@ -23,7 +23,7 @@ import XMonad.Layout.BoringWindows
 import XMonad.Util.SessionStart
 import XMonad.Util.SpawnOnce (spawnOnce)
 
-import System.Taffybar.Support.PagerHints (pagerHints)
+import XMonad.Hooks.TaffybarPagerHints (pagerHints)
 
 main:: IO ()
 main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def

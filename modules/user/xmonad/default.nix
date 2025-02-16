@@ -5,6 +5,15 @@ with lib;
   xsession.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
+
+    haskellPackages = if (pkgs.haskellPackages.xmonad.version < "0.18") then
+        pkgs.haskellPackages.extend (final: prev: {
+          xmonad = prev.xmonad_0_18_0 or prev.xmonad; # it is incredibly unlikely that nixpkgs will remove _0_18_0 inf favour of a _0_18_x or _0_19_0 without bumping xmonad to >= 0.18.0, but just in case fallback to xmonad if the special package is not available
+        })
+      else
+        pkgs.haskellPackages
+      ;
+
     extraPackages = haskellPackages: with haskellPackages; [
       taffybar
     ];
