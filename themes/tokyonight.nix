@@ -2,6 +2,7 @@
 let
   utils = import ./utils.nix;
 in
+{pkgs,}@inputs:
 rec {
   name = "tokyonight";
 
@@ -43,4 +44,9 @@ rec {
   bright-white = "#c0caf5";
 
   deadd-css-file = ../modules/user/deadd/tokyonight.css;
+
+  nvim-theme = {
+    plugin = pkgs.vimPlugins.tokyonight-nvim;
+    config = "colorscheme tokyonight";
+  };
 }

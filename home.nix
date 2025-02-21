@@ -4,19 +4,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.vim = {
-    enable = true;
-    settings = {
-      expandtab = true;
-      shiftwidth = 2;
-      tabstop = 2;
-    };
-    extraConfig = ''
-      filetype plugin indent on
-      set sts=2
-    '';
-  };
-
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;

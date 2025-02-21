@@ -93,12 +93,14 @@
         ./modules/user/xdg-portal
         ./modules/user/email
         ./modules/user/zsh
+        ./modules/user/neovim
       ];
 
       extraSpecialArgs = {
         inherit nixgl;
-        theming = import themes/tokyonight.nix;
-      };
+        theming = import themes/tokyonight.nix {
+          inherit pkgs;
+      }; };
     };
   };
 }
