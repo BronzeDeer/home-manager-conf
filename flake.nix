@@ -146,6 +146,7 @@
 
         # TODO: Unify with agenix-conf (have module dispense modules for home-manager, devShell, and systemConfig)
 
+        # TODO: add in path of flake root to construct correct path, PWD might be a sub directory when cding directly
         export PASSAGE_DIR="$PWD/secrets/passage/joel"
         export PASSAGE_IDENTITIES_FILE="$PWD/age-identities/age-yubikey-5c-primary-identity-c8d44732.pub"
 

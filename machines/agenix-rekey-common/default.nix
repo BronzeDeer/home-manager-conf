@@ -23,6 +23,6 @@
     #Choose a directory to store the rekeyed secrets for this host.
     # This cannot be shared with other hosts. Please refer to this path
     # from your flake's root directory and not by a direct path literal like ./secrets
-    localStorageDir = ../../. + "/secrets/rekeyed/${config.networking.hostName}";
+    localStorageDir = ../../.. + "/secrets/rekeyed/${config.networking.hostName}";
   };
 }
