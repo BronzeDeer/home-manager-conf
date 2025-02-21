@@ -42,6 +42,11 @@ main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ def
     , ("C-M1-t"  , spawn myTerminal                   ) -- Ctrl+Alt+t spawns terminal
     , ("C-<Tab>", spawn "rofi -show drun -theme grid") -- Ctrl+Tab spawns rofi launcher
    -- , ("C-<Tab>", spawn "rofi -show emoji -theme grid") -- Ctrl+Tab spawn rofi emoji picker
+    -- Screenshot keys
+    , ("<Print>", unGrab >> spawn "gnome-screenshot -i") -- Default: go to interactive mode
+    , ("S-<Print>", unGrab >> spawn "gnome-screenshot -ac") -- Shift+Print: area mode and directly to clipboard (useful for quick screenshotting for messages etc)
+    , ("C-<Print>", unGrab >> spawn "gnome-screenshot -wc") -- Control+Print: screenshot current window to clipboard
+    , ("M1-<Print>", unGrab >> spawn "gnome-screenshot ") -- Alt+Print: grab whole screen to clipboard, but not to clipboard since this is typically not used for messages
     ]
 
 myTerminal :: String
