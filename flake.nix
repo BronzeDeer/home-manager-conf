@@ -58,6 +58,7 @@
           ./modules/system/ausweisapp-firewall
           ./modules/system/cuda-maintainers-cache
           ./modules/system/fwupd
+          ./modules/system/age-yubikey
         ];
       };
     };
