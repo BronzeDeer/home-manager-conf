@@ -42,6 +42,13 @@
       # Allow unlocking cryptroot with fido2 device if enrolled
       crypttabExtraOpts = [ "fido2-device=auto"];
     };
+    cryptroot2 = {
+      device = "/dev/disk/by-uuid/675f257d-26ab-4f12-8506-862c8a43a743";
+      preLVM = true;
+      allowDiscards = true;
+      # Allow unlocking cryptroot with fido2 device if enrolled
+      crypttabExtraOpts = [ "fido2-device=auto"];
+    };
   };
   # Allow unlocking cryptroot with fido2 device if enrolled
   boot.initrd.systemd.enable = true;
