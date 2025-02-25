@@ -14,5 +14,7 @@
     ncdu # ncurses disk usage explorer
 
     gnome-screenshot
+
+    btop
   ];
 }
