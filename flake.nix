@@ -59,6 +59,7 @@
           ./modules/system/cuda-maintainers-cache
           ./modules/system/fwupd
           ./modules/system/age-yubikey
+          ./modules/system/coolercontrol
         ];
       };
     };
