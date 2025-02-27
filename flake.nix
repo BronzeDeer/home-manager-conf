@@ -96,6 +96,7 @@
         ./modules/user/email
         ./modules/user/zsh
         ./modules/user/neovim
+        ./modules/user/joystickwake
       ];
 
       extraSpecialArgs = {
