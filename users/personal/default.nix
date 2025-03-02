@@ -73,7 +73,7 @@
 
   # Import allowed Yubikeys for sudo and login
   home.file.u2fkeys = {
-    source = ./u2f_keys;
+    source = pkgs.replaceVars ./u2f_keys {user = config.home.username;};
     target = ".config/Yubico/u2f_keys";
   };
 
