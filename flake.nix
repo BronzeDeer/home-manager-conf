@@ -73,6 +73,7 @@
           ./modules/system/fwupd
           ./modules/system/age-yubikey
           ./modules/system/coolercontrol
+          ./modules/system/gdk-pixbuf
         ];
       };
     };
