@@ -51,7 +51,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.joel = import ./users/joel;
+            home-manager.users.joel = import ./users/personal;
 
             home-manager.extraSpecialArgs = {
               inherit nixgl;
@@ -80,7 +80,13 @@
       inherit pkgs;
 
       modules = [
-        ./users/joel
+        ./users/personal
+        {
+          # When imported via the nixos module those values get set automatically based on how the host is configured
+          # For the standalone version we need to specify username and home path
+          home.username = "joel";
+          home.homeDirectory = "/home/joel";
+        }
       ];
 
       extraSpecialArgs = {
