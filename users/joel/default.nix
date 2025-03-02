@@ -1,6 +1,38 @@
-{ config, pkgs, theming, ... }:
+{ config, pkgs,... }@inputs:
 
 {
+  imports = [
+    ../../modules/user/nixGL
+    ../../modules/user/kubernetes
+    ../../modules/user/xmonad
+    ../../modules/user/picom
+    ../../modules/user/social
+    ../../modules/user/gtk
+    ../../modules/user/kitty
+    ../../modules/user/betterlockscreen
+    ../../modules/user/rofi
+    ../../modules/user/file-manager
+    ../../modules/user/vlc
+    ../../modules/user/chromium
+    ../../modules/user/dropbox
+    ../../modules/user/vscode
+    ../../modules/user/blugon
+    ../../modules/user/basic-tools
+    ../../modules/user/libation
+    ../../modules/user/auto-start
+    ../../modules/user/blueman-autostart
+    ../../modules/user/deadd
+    ../../modules/user/ausweisapp
+    ../../modules/user/keepassxc
+    ../../modules/user/libreoffice
+    ../../modules/user/gwe
+    ../../modules/user/xdg-portal
+    ../../modules/user/email
+    ../../modules/user/zsh
+    ../../modules/user/neovim
+    ../../modules/user/joystickwake
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 

@@ -47,6 +47,19 @@
         inherit pkgs;
 
         modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.joel = import ./users/joel;
+
+            home-manager.extraSpecialArgs = {
+              inherit nixgl;
+              theming = import themes/tokyonight.nix {
+                inherit pkgs;
+            }; };
+          }
+
           ./machines/workstation/configuration.nix
           ./modules/system/nvidia
           ./modules/system/docker
@@ -67,36 +80,7 @@
       inherit pkgs;
 
       modules = [
-        ./home.nix
-        ./modules/user/nixGL
-        ./modules/user/kubernetes
-        ./modules/user/xmonad
-        ./modules/user/picom
-        ./modules/user/social
-        ./modules/user/gtk
-        ./modules/user/kitty
-        ./modules/user/betterlockscreen
-        ./modules/user/rofi
-        ./modules/user/file-manager
-        ./modules/user/vlc
-        ./modules/user/chromium
-        ./modules/user/dropbox
-        ./modules/user/vscode
-        ./modules/user/blugon
-        ./modules/user/basic-tools
-        ./modules/user/libation
-        ./modules/user/auto-start
-        ./modules/user/blueman-autostart
-        ./modules/user/deadd
-        ./modules/user/ausweisapp
-        ./modules/user/keepassxc
-        ./modules/user/libreoffice
-        ./modules/user/gwe
-        ./modules/user/xdg-portal
-        ./modules/user/email
-        ./modules/user/zsh
-        ./modules/user/neovim
-        ./modules/user/joystickwake
+        ./users/joel
       ];
 
       extraSpecialArgs = {
