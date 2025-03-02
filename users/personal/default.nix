@@ -71,12 +71,6 @@
 
   xsession.numlock.enable = true;
 
-  # Import p10k config
-  home.file.p10kconf = {
-    source = ./.p10k.zsh;
-    target ="p10k-config/.p10k.zsh";
-  };
-
   # Import allowed Yubikeys for sudo and login
   home.file.u2fkeys = {
     source = ./u2f_keys;

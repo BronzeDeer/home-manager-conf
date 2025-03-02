@@ -73,4 +73,10 @@
       ];
     };
   };
+
+  # Import p10k config
+  home.file.p10kconf = {
+    source = ./.p10k.zsh;
+    target ="p10k-config/.p10k.zsh";
+  };
 }
