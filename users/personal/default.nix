@@ -31,6 +31,7 @@
     ../../modules/user/zsh
     ../../modules/user/neovim
     ../../modules/user/joystickwake
+    ../../modules/user/pay-respects
   ];
 
   # Let Home Manager install and manage itself.

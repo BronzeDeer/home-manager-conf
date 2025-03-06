@@ -20,6 +20,7 @@
     ../../modules/user/jetbrains/java-idea
     ../../modules/user/jetbrains/python-pycharm
     ../../modules/user/neovim
+    ../../modules/user/pay-respects
   ];
 
 
