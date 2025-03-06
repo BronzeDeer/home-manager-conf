@@ -21,6 +21,7 @@
     ../../modules/user/jetbrains/python-pycharm
     ../../modules/user/neovim
     ../../modules/user/pay-respects
+    ../../modules/user/terraform
   ];
 
 
