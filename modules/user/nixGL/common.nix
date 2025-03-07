@@ -7,6 +7,6 @@
   nixGL = {
     # If we are evaluated on a nixOS system (osConfig != null), noop,
     # since nixOS doesn't need the nixGL wrapper
-    packages = if osConfig != null then nixgl.packages else null;
+    packages = if osConfig == null then nixgl.packages else null;
   };
 }
