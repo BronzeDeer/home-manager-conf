@@ -20,4 +20,8 @@
       set sts=2 sw=2 ts=2 expandtab smartindent
     '';
   };
+
+  home.packages = [
+    pkgs.xclip # for clipboard integration
+  ];
 }
