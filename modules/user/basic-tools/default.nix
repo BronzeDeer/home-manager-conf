@@ -16,5 +16,7 @@
     gnome-screenshot
 
     btop
+
+    magic-wormhole-rs
   ];
 }
