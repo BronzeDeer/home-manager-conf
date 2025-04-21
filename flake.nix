@@ -10,11 +10,12 @@
     nixgl.url = "github:nix-community/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
-
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl }:
+  outputs = { self, nixpkgs, home-manager, nixgl, nix-index-database }:
   let
     system = "x86_64-linux";
 
@@ -57,7 +58,10 @@
               inherit nixgl;
               theming = import themes/tokyonight.nix {
                 inherit pkgs;
-            }; };
+              };
+              inherit nix-index-database;
+
+            };
           }
 
           ./machines/workstation/configuration.nix
@@ -114,7 +118,9 @@
         inherit nixgl;
         theming = import themes/tokyonight.nix {
           inherit pkgs;
-      }; };
+        };
+        inherit nix-index-database;
+      };
     };
   };
 }
