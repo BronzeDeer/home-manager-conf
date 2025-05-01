@@ -6,41 +6,46 @@
 
     enableCompletion = false;
 
-    initExtraBeforeCompInit = ''
-      # https://github.com/marlonrichert/zsh-autocomplete/issues/761
-      setopt interactivecomments
+    initContent = lib.mkMerge [
 
-      # Insert unambigous prefix first before completing
-      # all widgets
-      zstyle ':autocomplete:*' insert-unambiguous yes
-      # Insert longest prefix instead of insert all common parts of the string
-      # foo.{1,2,3}.bar will complete to "foo." instead of "foo..bar"
-      zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+      # Before compinit
+      ( lib.mkOrder 550 (''
+        # https://github.com/marlonrichert/zsh-autocomplete/issues/761
+        setopt interactivecomments
 
-      # Do not try to match previous path segments, this interferes with the unambiguous completion
-      zstyle ':completion:*' path-completion false
+        # Insert unambigous prefix first before completing
+        # all widgets
+        zstyle ':autocomplete:*' insert-unambiguous yes
+        # Insert longest prefix instead of insert all common parts of the string
+        # foo.{1,2,3}.bar will complete to "foo." instead of "foo..bar"
+        zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 
-      # Add completion functions from the host system, but at the end so that nix installed ones can shadow them
-      fpath+=("/usr/share/zsh/vendor-completions")
+        # Do not try to match previous path segments, this interferes with the unambiguous completion
+        zstyle ':completion:*' path-completion false
 
-    '' + lib.optionals config.programs.fzf.enable ''
-      # We need to manually load fzf before zsh-autocomplete, otherwise breakage can occur, I'm not sure why
-      if [[ $options[zle] = on ]]; then
-        eval "$(${config.programs.fzf.package}/bin/fzf --zsh)"
-      fi
-    '';
+        # Add completion functions from the host system, but at the end so that nix installed ones can shadow them
+        fpath+=("/usr/share/zsh/vendor-completions")
 
-    initExtra = ''
-      # This zstyle (support?) was either silently dropped or it is supposed to automagically work now (it doesn't)
-      #zstyle ':autocomplete:tab:*' fzf-completion yes
+      '' + lib.optionals config.programs.fzf.enable ''
+        # We need to manually load fzf before zsh-autocomplete, otherwise breakage can occur, I'm not sure why
+        if [[ $options[zle] = on ]]; then
+          eval "$(${config.programs.fzf.package}/bin/fzf --zsh)"
+        fi
+      ''))
+      # Normal init
+      ( ''
+        # This zstyle (support?) was either silently dropped or it is supposed to automagically work now (it doesn't)
+        #zstyle ':autocomplete:tab:*' fzf-completion yes
 
-      source ${./post-zac-hook.zsh}
-      source ${./custom-tilde-completion.zsh}
+        source ${./post-zac-hook.zsh}
+        source ${./custom-tilde-completion.zsh}
 
-      # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
-      zstyle ':completion-sync:compinit:custom:post-hook' enabled true
-      zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true"; source ${./custom-tilde-completion.zsh}'
-    '';
+        # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
+        zstyle ':completion-sync:compinit:custom:post-hook' enabled true
+        zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true"; source ${./custom-tilde-completion.zsh}'
+      ''
+      )
+    ];
 
     shellAliases = {
       ll = "ls -lah";

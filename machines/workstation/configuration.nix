@@ -81,13 +81,17 @@
   services.displayManager.defaultSession = "none+i3";
   services.xserver.windowManager.i3 = {
     enable = true;
-    extraPackages = with pkgs;  [
+    extraPackages = with pkgs; [
       dmenu
       i3status
-      i3lock
       i3blocks
     ];
   };
+
+  # Many screen lockers use i3lock as a base which has a hardcoded pam service it looks for
+  # A pam service cannot be added from a user-profile, so enable this by default
+  # This used to always enabled by default, until https://github.com/NixOS/nixpkgs/pull/399051
+  security.pam.services.i3lock.enable=true;
 
   services.udev.packages = with pkgs; [
     yubikey-personalization

@@ -113,7 +113,7 @@
     };
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # Load all _sk ssh keys at shell start
     # they don't need passwords to unlock since they are used interactively with the security key
     # This allows us to use multiple alternative ssh keys depending on which security key is plugged in

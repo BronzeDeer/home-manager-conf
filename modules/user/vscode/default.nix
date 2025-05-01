@@ -5,7 +5,7 @@
 
     package = (config.lib.nixGL.wrap pkgs.vscode);
 
-    extensions = with pkgs; [
+    profiles.default.extensions = with pkgs; [
       vscode-extensions.hashicorp.terraform
       vscode-extensions.bbenoist.nix
     ];
