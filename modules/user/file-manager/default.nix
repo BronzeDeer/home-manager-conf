@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   home.packages = with pkgs; [
     # Thunar is a simple but fully-featured gtk based file manager

@@ -1,6 +1,11 @@
-{config, pkgs, lib, ...}:
 {
-  options= {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  options = {
     # Instead of enabling cudaSupport for all packages, set custom flag to indicate that cudaSupport is available on this system
     _cudaSupportAvailable = lib.options.mkOption {
       default = true;
@@ -29,7 +34,9 @@
     };
 
     #libva doesn't seem to be able to query for the driver correctly, so we have to hint which driver we want
-    environment.sessionVariables = { LIBVA_DRIVER_NAME="nvidia"; };
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "nvidia";
+    };
 
     hardware.nvidia = {
       modesetting.enable = true;
@@ -39,7 +46,7 @@
       open = true;
 
     };
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     # Enable using gpu in containers
     hardware.nvidia-container-toolkit.enable = true;

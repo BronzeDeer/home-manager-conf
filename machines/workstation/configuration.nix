@@ -5,19 +5,22 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Monitor setup
-      ./autorandr.nix
-      # Enable Pipewire for sound
-      ./pipewire
-      # Steam needs to be enabled on system-level due to firewall changes among other things
-      ./steam
-      ./bluetooth
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Monitor setup
+    ./autorandr.nix
+    # Enable Pipewire for sound
+    ./pipewire
+    # Steam needs to be enabled on system-level due to firewall changes among other things
+    ./steam
+    ./bluetooth
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = false;
@@ -40,14 +43,14 @@
       preLVM = true;
       allowDiscards = true;
       # Allow unlocking cryptroot with fido2 device if enrolled
-      crypttabExtraOpts = [ "fido2-device=auto"];
+      crypttabExtraOpts = [ "fido2-device=auto" ];
     };
     cryptroot2 = {
       device = "/dev/disk/by-uuid/675f257d-26ab-4f12-8506-862c8a43a743";
       preLVM = true;
       allowDiscards = true;
       # Allow unlocking cryptroot with fido2 device if enrolled
-      crypttabExtraOpts = [ "fido2-device=auto"];
+      crypttabExtraOpts = [ "fido2-device=auto" ];
     };
   };
   # Allow unlocking cryptroot with fido2 device if enrolled
@@ -56,7 +59,7 @@
   networking.hostName = "nixos-workstation"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -91,7 +94,7 @@
   # Many screen lockers use i3lock as a base which has a hardcoded pam service it looks for
   # A pam service cannot be added from a user-profile, so enable this by default
   # This used to always enabled by default, until https://github.com/NixOS/nixpkgs/pull/399051
-  security.pam.services.i3lock.enable=true;
+  security.pam.services.i3lock.enable = true;
 
   services.udev.packages = with pkgs; [
     yubikey-personalization
@@ -117,7 +120,8 @@
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
       "docker" # Enable interacting with the docker daemon
-      "scanner" "lp" #Enable interacting with scanners
+      "scanner"
+      "lp" # Enable interacting with scanners
     ];
     packages = with pkgs; [
       firefox

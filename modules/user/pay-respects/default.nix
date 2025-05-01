@@ -1,4 +1,9 @@
-{pkgs, lib, config,...}@inputs:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}@inputs:
 {
 
   # If our containing flake provides the precompiled nix-index-database module, use that

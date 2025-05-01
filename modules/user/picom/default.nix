@@ -1,6 +1,6 @@
 # Adopted from https://github.com/sherubthakur/dotfiles/
 
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 let
   # Regex that matches all strings starting with 'eww' that don't end in 'bg'
   non-background-eww-stuff = "^eww(?!.+-bg$).+$";

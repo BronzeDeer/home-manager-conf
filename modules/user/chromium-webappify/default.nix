@@ -1,4 +1,9 @@
-{config, pkgs, lib, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.webappify;
@@ -28,30 +33,39 @@ let
       };
     };
   };
-  mkApp = (app : rec {
-    name = sanitizeName app.name;
-    prettyName = app.name;
-    command = "${cfg.browserCommand} \"--app=${app.url}\" \"--user-data-dir=${dataDir}\" \"--class=${prettyName}\" \"--no-first-run\"";
-    dataDir = strings.normalizePath "${app.dataDirBase}/${name}";
-    desktopEntry = {
-      name = prettyName;
-      exec = command;
-      settings = {
-        # Set different window manager classes to avoid app grouping
-        StartupWMClass = prettyName;
-      };
-    } // optionalAttrs (app.icon != null) {
-      icon = app.icon;
-    };
-  });
+  mkApp = (
+    app: rec {
+      name = sanitizeName app.name;
+      prettyName = app.name;
+      command = "${cfg.browserCommand} \"--app=${app.url}\" \"--user-data-dir=${dataDir}\" \"--class=${prettyName}\" \"--no-first-run\"";
+      dataDir = strings.normalizePath "${app.dataDirBase}/${name}";
+      desktopEntry =
+        {
+          name = prettyName;
+          exec = command;
+          settings = {
+            # Set different window manager classes to avoid app grouping
+            StartupWMClass = prettyName;
+          };
+        }
+        // optionalAttrs (app.icon != null) {
+          icon = app.icon;
+        };
+    }
+  );
   # Convert human readable name to more machine-friendly format of lowercase alphanum and "_"
   # First all characters are lowercased, then all sequences of characters that are not in [a-z0-9] are replaced with a single underscore
-  sanitizeName = (n : strings.concatStringsSep "_" (
-    builtins.filter (x : builtins.typeOf x == "string" && builtins.stringLength x > 0) ( # We check for empty string to remove ignore illegal characters at start and end of string
-      builtins.split "[^a-z0-9]" (strings.toLower n)
+  sanitizeName = (
+    n:
+    strings.concatStringsSep "_" (
+      builtins.filter (x: builtins.typeOf x == "string" && builtins.stringLength x > 0) (
+        # We check for empty string to remove ignore illegal characters at start and end of string
+        builtins.split "[^a-z0-9]" (strings.toLower n)
+      )
     )
-  ));
-in {
+  );
+in
+{
   options = {
     webappify = {
 
@@ -101,16 +115,19 @@ in {
       };
 
       apps = mkOption {
-        type = types.listOf (types.coercedTo types.str (s: {url = s;}) (types.submodule appOptions));
-        default = [];
+        type = types.listOf (types.coercedTo types.str (s: { url = s; }) (types.submodule appOptions));
+        default = [ ];
       };
     };
   };
   config = mkIf cfg.enable (
     let
       apps = map mkApp cfg.apps;
-    in {
-      xdg.desktopEntries = listToAttrs (map (app : attrsets.nameValuePair "${cfg.appIdPrefix}.${app.name}" app.desktopEntry) apps);
+    in
+    {
+      xdg.desktopEntries = listToAttrs (
+        map (app: attrsets.nameValuePair "${cfg.appIdPrefix}.${app.name}" app.desktopEntry) apps
+      );
       #webappify.out.apps = listToAttrs(map (app : attrsets.nameValuePair app.name app) apps);
     }
   );

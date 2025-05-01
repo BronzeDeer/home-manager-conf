@@ -15,112 +15,124 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl, nix-index-database }:
-  let
-    system = "x86_64-linux";
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixgl,
+      nix-index-database,
+    }:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs{
-      inherit system;
-      config = { allowUnfree = true; };
-      overlays = [
-        nixgl.overlay
-        (self: super : {
-        # Use yet-unmerged fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
-        autorandr = super.autorandr.overrideAttrs (old: {
-          version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
-          src = super.fetchFromGitHub {
-            owner = "phillipberndt";
-            repo = "autorandr";
-            rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
-            hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
-          };
-        });
-      })
-      ];
-    };
-
-   lib = nixpkgs.lib;
-
-  in {
-    nixosConfigurations = {
-      nixos-workstation = lib.nixosSystem {
+      pkgs = import nixpkgs {
         inherit system;
+        config = {
+          allowUnfree = true;
+        };
+        overlays = [
+          nixgl.overlay
+          (self: super: {
+            # Use yet-unmerged fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
+            autorandr = super.autorandr.overrideAttrs (old: {
+              version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+              src = super.fetchFromGitHub {
+                owner = "phillipberndt";
+                repo = "autorandr";
+                rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+                hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
+              };
+            });
+          })
+        ];
+      };
+
+      lib = nixpkgs.lib;
+
+    in
+    {
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+      nixosConfigurations = {
+        nixos-workstation = lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.joel = import ./users/personal;
+
+              home-manager.extraSpecialArgs = {
+                inherit nixgl;
+                theming = import themes/tokyonight.nix {
+                  inherit pkgs;
+                };
+                inherit nix-index-database;
+
+              };
+            }
+
+            ./machines/workstation/configuration.nix
+            ./modules/system/nvidia
+            ./modules/system/docker
+            ./modules/system/file-manager-support
+            # Needs to be included on system level due to optional cuda Support in nixpkgs.config
+            ./modules/system/blender
+            ./modules/system/printing
+            ./modules/system/nix-storage-optimisation
+            ./modules/system/ausweisapp-firewall
+            ./modules/system/cuda-maintainers-cache
+            ./modules/system/fwupd
+            ./modules/system/age-yubikey
+            ./modules/system/coolercontrol
+            ./modules/system/gdk-pixbuf
+          ];
+        };
+      };
+      homeConfigurations.joel = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
-          home-manager.nixosModules.home-manager
+          ./users/personal
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.joel = import ./users/personal;
-
-            home-manager.extraSpecialArgs = {
-              inherit nixgl;
-              theming = import themes/tokyonight.nix {
-                inherit pkgs;
-              };
-              inherit nix-index-database;
-
-            };
+            # When imported via the nixos module those values get set automatically based on how the host is configured
+            # For the standalone version we need to specify username and home path
+            home.username = "joel";
+            home.homeDirectory = "/home/joel";
           }
-
-          ./machines/workstation/configuration.nix
-          ./modules/system/nvidia
-          ./modules/system/docker
-          ./modules/system/file-manager-support
-          # Needs to be included on system level due to optional cuda Support in nixpkgs.config
-          ./modules/system/blender
-          ./modules/system/printing
-          ./modules/system/nix-storage-optimisation
-          ./modules/system/ausweisapp-firewall
-          ./modules/system/cuda-maintainers-cache
-          ./modules/system/fwupd
-          ./modules/system/age-yubikey
-          ./modules/system/coolercontrol
-          ./modules/system/gdk-pixbuf
         ];
-      };
-    };
-    homeConfigurations.joel = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
 
-      modules = [
-        ./users/personal
-        {
-          # When imported via the nixos module those values get set automatically based on how the host is configured
-          # For the standalone version we need to specify username and home path
-          home.username = "joel";
-          home.homeDirectory = "/home/joel";
-        }
-      ];
-
-      extraSpecialArgs = {
-        inherit nixgl;
-        theming = import themes/tokyonight.nix {
-          inherit pkgs;
-      }; };
-    };
-
-    homeConfigurations.jpe = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      modules = [
-        ./users/work
-        {
-          # When imported via the nixos module those values get set automatically based on how the host is configured
-          # For the standalone version we need to specify username and home path
-          home.username = "jpe";
-          home.homeDirectory = "/home/jpe";
-        }
-      ];
-
-      extraSpecialArgs = {
-        inherit nixgl;
-        theming = import themes/tokyonight.nix {
-          inherit pkgs;
+        extraSpecialArgs = {
+          inherit nixgl;
+          theming = import themes/tokyonight.nix {
+            inherit pkgs;
+          };
         };
-        inherit nix-index-database;
+      };
+
+      homeConfigurations.jpe = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          ./users/work
+          {
+            # When imported via the nixos module those values get set automatically based on how the host is configured
+            # For the standalone version we need to specify username and home path
+            home.username = "jpe";
+            home.homeDirectory = "/home/jpe";
+          }
+        ];
+
+        extraSpecialArgs = {
+          inherit nixgl;
+          theming = import themes/tokyonight.nix {
+            inherit pkgs;
+          };
+          inherit nix-index-database;
+        };
       };
     };
-  };
 }

@@ -1,4 +1,10 @@
-{pkgs,lib,config,theming,...}:
+{
+  pkgs,
+  lib,
+  config,
+  theming,
+  ...
+}:
 {
   home.keyboard = {
     options = [
@@ -8,11 +14,14 @@
 
   programs.neovim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [
-      telescope-nvim
-      harpoon2
-      nvim-treesitter.withAllGrammars
-    ] ++ lib.optionals (theming ? "nvim-theme") [theming.nvim-theme];
+    plugins =
+      with pkgs.vimPlugins;
+      [
+        telescope-nvim
+        harpoon2
+        nvim-treesitter.withAllGrammars
+      ]
+      ++ lib.optionals (theming ? "nvim-theme") [ theming.nvim-theme ];
     vimAlias = true;
     defaultEditor = true;
     extraConfig = ''

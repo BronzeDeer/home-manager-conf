@@ -1,4 +1,9 @@
-{config, pkgs, lib,...}@inputs:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}@inputs:
 {
   home.packages = with pkgs; [
     terraform

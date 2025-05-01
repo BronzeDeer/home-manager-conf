@@ -1,4 +1,4 @@
-{pkgs,lib,...}@inputs:
+{ pkgs, lib, ... }@inputs:
 {
   programs.coolercontrol.enable = true;
   environment.systemPackages = with pkgs; [

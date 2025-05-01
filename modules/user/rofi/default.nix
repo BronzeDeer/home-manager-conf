@@ -1,5 +1,6 @@
 # Adopted from github.com/sherubthakur/dotfiles
-{ pkgs, theming, ... }: {
+{ pkgs, theming, ... }:
+{
 
   home.packages = with pkgs; [
     # allow rofi to insert emojis via fake keyboard input (X11)
@@ -10,7 +11,11 @@
 
   programs.rofi = {
     enable = true;
-    plugins = [ pkgs.rofi-emoji pkgs.rofi-calc pkgs.rofi-file-browser ];
+    plugins = [
+      pkgs.rofi-emoji
+      pkgs.rofi-calc
+      pkgs.rofi-file-browser
+    ];
     extraConfig = {
       modes = [
         "window"

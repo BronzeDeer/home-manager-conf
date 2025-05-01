@@ -1,10 +1,11 @@
-{pkgs,lib,...}@inputs : {
+{ pkgs, lib, ... }@inputs:
+{
 
-    config = {
-        home.packages = with pkgs; [
-            azure-cli
-            kubelogin
-            kubelogin-oidc
-        ];
-    };
+  config = {
+    home.packages = with pkgs; [
+      azure-cli
+      kubelogin
+      kubelogin-oidc
+    ];
+  };
 }

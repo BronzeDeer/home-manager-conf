@@ -1,17 +1,14 @@
 with builtins;
 {
-  transparentify = color:
-    "#00${substring 1 (stringLength color - 1) color}";
+  transparentify = color: "#00${substring 1 (stringLength color - 1) color}";
 
   # TODO: Implemet a version that makes a color brighter
   # Possible algo
   # - convert RGB to HSL
   # - adjust luminosity (L)
   # - convert back to RGB
-  brighter = color:
-    color;
+  brighter = color: color;
 
   # TODO: Implemet a version that makes a color dimmer
-  dimmer = color:
-    color;
+  dimmer = color: color;
 }

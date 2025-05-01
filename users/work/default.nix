@@ -1,4 +1,9 @@
-{ config, pkgs, theming, ... }:
+{
+  config,
+  pkgs,
+  theming,
+  ...
+}:
 
 {
 
@@ -24,7 +29,6 @@
     ../../modules/user/terraform
   ];
 
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -45,24 +49,27 @@
     };
 
     # TODO: doesn't work correctly yet
-    includes = (builtins.map (urlGlob:
-      # Conditionally overwrite user when commiting to my own repos
-      {
-        condition = "hasconfig:remote.*.url:${urlGlob}";
-        contents = {
-          user.email = "pepper@bronze-deer.de";
-          user.name = "Joel Pepper";
-        };
-      })
-      [
-        "git@github.com/BronzeDeer/**"
-        "git@github.com:BronzeDeer/**"
-        "git+ssh://git@github.com/BronzeDeer/**"
-        "ssh://git@github.com:BronzeDeer/**"
-        "git+ssh://github.com/BronzeDeer/**"
-        "ssh://github.com:BronzeDeer/**"
-        "https://github.com/BronzeDeer/**"
-      ]
+    includes = (
+      builtins.map
+        (
+          urlGlob:
+          # Conditionally overwrite user when commiting to my own repos
+          {
+            condition = "hasconfig:remote.*.url:${urlGlob}";
+            contents = {
+              user.email = "pepper@bronze-deer.de";
+              user.name = "Joel Pepper";
+            };
+          })
+        [
+          "git@github.com/BronzeDeer/**"
+          "git@github.com:BronzeDeer/**"
+          "git+ssh://git@github.com/BronzeDeer/**"
+          "ssh://git@github.com:BronzeDeer/**"
+          "git+ssh://github.com/BronzeDeer/**"
+          "ssh://github.com:BronzeDeer/**"
+          "https://github.com/BronzeDeer/**"
+        ]
     );
 
     extraConfig = {
@@ -88,12 +95,12 @@
 
   # Import allowed Yubikeys for sudo and login
   home.file.u2fkeys = {
-    source = pkgs.replaceVars ../personal/u2f_keys {user = config.home.username;}; #same keys as private machine
+    source = pkgs.replaceVars ../personal/u2f_keys { user = config.home.username; }; # same keys as private machine
     target = ".config/Yubico/u2f_keys";
   };
 
   home.file.sshKeys = {
-    source = ../personal/.ssh; #same keys as private machine, since they are bound to a yubikey on my person
+    source = ../personal/.ssh; # same keys as private machine, since they are bound to a yubikey on my person
     # For some reason home-manager struggles with linking into .ssh (likely due to generating and linking .ssh/config)
     # Since we auto discover these keys anyway, inserting another subfolder should not pose a problem
     target = ".ssh/keys";

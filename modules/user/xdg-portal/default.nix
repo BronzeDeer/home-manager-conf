@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   # Enable file picker for apps with portal support
   xdg.portal = {

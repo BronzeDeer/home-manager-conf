@@ -2,7 +2,7 @@
 let
   utils = import ./utils.nix;
 in
-{pkgs,}@inputs:
+{ pkgs }@inputs:
 rec {
   name = "tokyonight";
 

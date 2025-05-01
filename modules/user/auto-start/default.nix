@@ -1,8 +1,14 @@
-{config, pkgs, lib, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.userautostart;
-in {
+in
+{
   options = {
     userautostart = {
 
@@ -32,12 +38,13 @@ in {
     home.file.autostart = {
       target = cfg.entrypoint;
       executable = true;
-      text = ''
-        #!/${pkgs.stdenv.shell}
-        # debug
-        date +%F-%H-%M-%S >> ~/autostart-debug.log
-      ''
-      + cfg.scriptInline;
+      text =
+        ''
+          #!/${pkgs.stdenv.shell}
+          # debug
+          date +%F-%H-%M-%S >> ~/autostart-debug.log
+        ''
+        + cfg.scriptInline;
     };
   };
 }

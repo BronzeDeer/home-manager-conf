@@ -1,4 +1,9 @@
-{config, pkgs, lib, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   zohoImap = {
     host = "imappro.zoho.eu";
@@ -10,7 +15,8 @@ let
     port = 465;
     tls.enable = true;
   };
-in {
+in
+{
   accounts.email.accounts = {
     gmx = {
       thunderbird.enable = true;
@@ -28,7 +34,7 @@ in {
       };
       smtp = {
         host = "mail.gmx.net";
-        port= 465;
+        port = 465;
         tls.enable = true;
       };
     };

@@ -1,6 +1,11 @@
-{config, pkgs, lib,...}@inputs:
 {
-    home.packages = [
-        pkgs.jetbrains.idea-community
-    ];
+  config,
+  pkgs,
+  lib,
+  ...
+}@inputs:
+{
+  home.packages = [
+    pkgs.jetbrains.idea-community
+  ];
 }

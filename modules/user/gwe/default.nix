@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   home.packages = with pkgs; [
     # Ensure green with envy is installed, even if we might shadow a system package

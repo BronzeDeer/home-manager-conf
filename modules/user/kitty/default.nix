@@ -1,7 +1,11 @@
 # Adopted from https://github.com/sherubthakur/dotfiles/
 
-{ config, pkgs, theming, ... }:
-
+{
+  config,
+  pkgs,
+  theming,
+  ...
+}:
 
 {
   # Allow importing and "nerdyfing" fonts for p10k
@@ -18,12 +22,11 @@
 
     font.name = "FiraCode Nerd Font Mono";
     font.size = 10;
-    shellIntegration.enableZshIntegration = true ;
+    shellIntegration.enableZshIntegration = true;
     #theme = "${theming.kitty-theme}";
     settings = {
       scrollback_lines = 10000;
       input_delay = 1;
-
 
       foreground = "${theming.fg-primary}";
       background = "${theming.bg-primary}";
