@@ -5,6 +5,13 @@
   ...
 }:
 {
+  home.packages = [
+    # We disable zsh.enableCompletion to avoid double or tripple compinit, but still want the extra zsh completions installed
+    pkgs.nix-zsh-completions
+    # Also install general extra completions
+    pkgs.zsh-completions
+  ];
+
   programs.zsh = {
     # Let HM manage zsh
     enable = true;
@@ -50,7 +57,7 @@
 
         # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
         zstyle ':completion-sync:compinit:custom:post-hook' enabled true
-        zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} "true"; source ${./custom-tilde-completion.zsh}'
+        zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} 1; source ${./custom-tilde-completion.zsh}'
       '')
     ];
 
@@ -141,7 +148,7 @@
         {
           name = "BronzeDeer/zsh-completion-sync";
           tags = [
-            "at:v0.3.0"
+            "at:v0.3.1"
             "defer:3"
           ];
         }
