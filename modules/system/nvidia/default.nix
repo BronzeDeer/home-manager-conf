@@ -36,7 +36,8 @@
       nvidiaSettings = true;
       # Experimental support for better resume from sleep
       powerManagement.enable = true;
-      open = false;
+      open = true;
+
     };
     services.xserver.videoDrivers = ["nvidia"];
 
