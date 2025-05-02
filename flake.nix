@@ -44,6 +44,16 @@
                 hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
               };
             });
+            picom = super.picom.overrideAttrs (old: {
+              # Temporary fix for #1398
+              version = "v12";
+              src = super.fetchFromGitHub {
+                owner = "yshui";
+                repo = "picom";
+                rev = "0f3784f3069d9f949af3cd43d1d34b170adf6b4d"; # PR#1415
+                hash = "sha256-VRL82w+e2yIBP1tFO4XbmqnqVU8gFgMXo68WuVV7ix0=";
+              };
+            });
           })
         ];
       };
