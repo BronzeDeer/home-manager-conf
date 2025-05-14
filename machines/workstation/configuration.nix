@@ -56,6 +56,8 @@
   # Allow unlocking cryptroot with fido2 device if enrolled
   boot.initrd.systemd.enable = true;
 
+  boot.tmp.cleanOnBoot = true;
+
   networking.hostName = "nixos-workstation"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
