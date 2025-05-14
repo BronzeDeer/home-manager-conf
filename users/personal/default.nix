@@ -32,6 +32,7 @@
     ../../modules/user/neovim
     ../../modules/user/joystickwake
     ../../modules/user/pay-respects
+    ../../modules/user/nixfmt
   ];
 
   # Let Home Manager install and manage itself.
