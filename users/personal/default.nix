@@ -51,7 +51,7 @@
       ffmerge = "merge --ff-only";
       fap = "fetch --all --prune";
       rip = ''!f() { git rebase -i --autosquash --autostash `git merge-base HEAD ''${1:-origin/HEAD}`; }; f'';
-      alias = "git config --get-regexp 'alias.*'";
+      alias = "config --get-regexp 'alias.*'";
     };
     extraConfig = {
       pull.rebase = true;
