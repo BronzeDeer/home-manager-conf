@@ -12,8 +12,8 @@
 
   userautostart.scriptInline = ''
     chromium  --app="http://web.whatsapp.com" --user-data-dir=$HOME/.messenger-browser-profiles/whatsapp &
-    chromium  --app="http://www.facebook.com/messages/t/" --user-data-dir=$HOME/.messenger-browser-profiles/facebook &
     signal-desktop &
-    telegram-desktop &
+    Telegram &
   '';
+    #chromium  --app="http://www.facebook.com/messages/t/" --user-data-dir=$HOME/.messenger-browser-profiles/facebook &
 }

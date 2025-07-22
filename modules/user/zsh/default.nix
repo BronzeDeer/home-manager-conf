@@ -4,6 +4,15 @@
   lib,
   ...
 }:
+let
+  sourceOmzPlugin = ( name : "source ${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/${name}/${name}.plugin.zsh");
+  zsh-completion-sync = pkgs.fetchFromGitHub { #TODO: Get this into nixpkgs
+    owner = "BronzeDeer";
+    repo = "zsh-completion-sync";
+    rev = "v0.3.1";
+    hash = "sha256-XhZ7l8e2H1+W1oUkDrr8pQVPVbb3+1/wuu7MgXsTs+8=";
+  };
+in
 {
   home.packages = [
     # We disable zsh.enableCompletion to avoid double or tripple compinit, but still want the extra zsh completions installed
@@ -16,7 +25,15 @@
     # Let HM manage zsh
     enable = true;
 
-    enableCompletion = false;
+    syntaxHighlighting.enable = true;
+
+    # Use ZAC instead of normal auto complete
+    completionInit = ''
+      source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+      source ${./post-zac-hook.zsh}
+      source ${./custom-tilde-completion.zsh}
+    '';
 
     initContent = lib.mkMerge [
 
@@ -36,6 +53,16 @@
           # Do not try to match previous path segments, this interferes with the unambiguous completion
           zstyle ':completion:*' path-completion false
 
+
+          ${sourceOmzPlugin "colored-man-pages"}
+          ${sourceOmzPlugin "colorize"}
+          ${sourceOmzPlugin "command-not-found"}
+
+          ${sourceOmzPlugin "gh"} # Should probably make this one conditional on gh being installed
+          ${sourceOmzPlugin "vi-mode"}
+          ${sourceOmzPlugin "direnv"}
+          source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+
           # Add completion functions from the host system, but at the end so that nix installed ones can shadow them
           fpath+=("/usr/share/zsh/vendor-completions")
 
@@ -52,113 +79,25 @@
         # This zstyle (support?) was either silently dropped or it is supposed to automagically work now (it doesn't)
         #zstyle ':autocomplete:tab:*' fzf-completion yes
 
-        source ${./post-zac-hook.zsh}
-        source ${./custom-tilde-completion.zsh}
+        # Uses compdef directly instead of async compdef on autoload, therefore needs to go after compinit
+        ${sourceOmzPlugin "git"}
 
         # Ensure that our customizations will be re-run if we reload compsys via the completion-sync plugin
         zstyle ':completion-sync:compinit:custom:post-hook' enabled true
         zstyle ':completion-sync:compinit:custom:post-hook' command 'source ${./post-zac-hook.zsh} 1; source ${./custom-tilde-completion.zsh}'
+
+        # Prompt theme
+        prompt off # Needed in case /etc/zshrc has already loaded a theme (like on nixos with `programs.zsh.enable = true;`)
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        source ${./.p10k.zsh}
+      '')
+      (lib.mkOrder 1500 ''
+        source ${zsh-completion-sync}/zsh-completion-sync.plugin.zsh
       '')
     ];
 
     shellAliases = {
       ll = "ls -lah";
     };
-
-    zplug = {
-      enable = true;
-
-      plugins = [
-        {
-          name = "plugins/colored-man-pages";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/colorize";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/command-not-found";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/fd";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/fzf";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/git";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/gh";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/ripgrep";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/vi-mode";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/direnv";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "plugins/gradle";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        # { name = "plugins/"; tags = [from:oh-my-zsh]; }
-        {
-          name = "chisui/zsh-nix-shell";
-          tags = [ "at:82ca15e638cc208e6d8368e34a1625ed75e08f90" ];
-        }
-        {
-          name = "zsh-users/zsh-syntax-highlighting";
-          tags = [ ];
-        }
-        {
-          name = "plugins/zsh-autosuggestions";
-          tags = [ "from:oh-my-zsh" ];
-        }
-        {
-          name = "marlonrichert/zsh-autocomplete";
-          tags = [ "at:24.09.04" ];
-        }
-        { name = "kutsan/zsh-system-clipboard"; } # IMPORTANT
-        {
-          name = "romkatv/powerlevel10k";
-          tags = [
-            "as:theme"
-            "depth:1"
-          ];
-        }
-        {
-          name = "~/p10k-config/";
-          tags = [
-            "from:local"
-            "use:.p10k.zsh"
-          ];
-        }
-        {
-          name = "BronzeDeer/zsh-completion-sync";
-          tags = [
-            "at:v0.3.1"
-            "defer:3"
-          ];
-        }
-      ];
-    };
-  };
-
-  # Import p10k config
-  home.file.p10kconf = {
-    source = ./.p10k.zsh;
-    target = "p10k-config/.p10k.zsh";
   };
 }

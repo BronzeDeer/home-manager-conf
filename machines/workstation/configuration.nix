@@ -150,7 +150,13 @@
     enableSSHSupport = false;
   };
   programs.dconf.enable = true;
-  programs.zsh.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    # Allow users to decide when and if they want to compinit
+    enableGlobalCompInit = false;
+  };
 
   programs.ssh = {
     startAgent = true;

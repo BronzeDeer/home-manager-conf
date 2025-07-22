@@ -54,6 +54,23 @@
                 hash = "sha256-VRL82w+e2yIBP1tFO4XbmqnqVU8gFgMXo68WuVV7ix0=";
               };
             });
+            # This was already manually added as a fix for ghc 9.6, currently nixpkgs is looking for a more sustainable solution (getting the patch onto hackage)
+            # For our purpose taking the patch forward is fine though
+            haskellPackages = super.haskellPackages.extend (hself: hsuper: {
+              ConfigFile = self.haskell.lib.compose.overrideCabal (drv: {
+                broken = false;
+                editedCabalFile = null;
+                buildDepends = drv.buildDepends or [ ] ++ [ hself.HUnit ];
+                patches = [
+                  (pkgs.fetchpatch {
+                    # https://github.com/jgoerzen/configfile/pull/12
+                    name = "ConfigFile-pr-12.patch";
+                    url = "https://github.com/jgoerzen/configfile/compare/d0a2e654be0b73eadbf2a50661d00574ad7b6f87...83ee30b43f74d2b6781269072cf5ed0f0e00012f.patch";
+                    sha256 = "sha256-b7u9GiIAd2xpOrM0MfILHNb6Nt7070lNRIadn2l3DfQ=";
+                  })
+                ];
+              }) hsuper.ConfigFile;
+            });
           })
         ];
       };
