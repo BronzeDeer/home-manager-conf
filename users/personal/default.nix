@@ -52,6 +52,7 @@
       fap = "fetch --all --prune";
       rip = ''!f() { git rebase -i --autosquash --autostash `git merge-base HEAD ''${1:-origin/HEAD}`; }; f'';
       alias = "config --get-regexp 'alias.*'";
+      reuse = "commit --amend --reset-author --no-edit -C";
     };
     extraConfig = {
       pull.rebase = true;
