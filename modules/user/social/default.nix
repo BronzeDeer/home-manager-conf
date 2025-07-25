@@ -1,9 +1,14 @@
 { config, pkgs, ... }:
+let
+  signal = pkgs.signal-desktop;
+  telegram = pkgs.telegram-desktop;
+in
 {
   home.packages = with pkgs; [
-    signal-desktop
-    telegram-desktop
+    signal
+    telegram
     discord
+    dex # platform agnostic .desktop launcher
   ];
 
   # For the browser-only messengers, create separate chromium profiles and launch them in app mode
@@ -12,8 +17,8 @@
 
   userautostart.scriptInline = ''
     chromium  --app="http://web.whatsapp.com" --user-data-dir=$HOME/.messenger-browser-profiles/whatsapp &
-    signal-desktop &
-    Telegram &
+    dex ${signal}/share/applications/*.desktop
+    dex ${telegram}/share/applications/*.desktop
   '';
     #chromium  --app="http://www.facebook.com/messages/t/" --user-data-dir=$HOME/.messenger-browser-profiles/facebook &
 }
