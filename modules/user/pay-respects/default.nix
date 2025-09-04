@@ -8,7 +8,7 @@
 
   # If our containing flake provides the precompiled nix-index-database module, use that
   imports = lib.optionals (inputs ? "nix-index-database") [
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
   ];
 
   programs.pay-respects = {

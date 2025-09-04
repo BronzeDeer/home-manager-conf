@@ -93,11 +93,15 @@
 
   programs.ssh = {
     enable = true;
-    controlMaster = "auto";
-    # Force the path to use the hash of %r%h%p, this avoids overrunning the 108 byte limite for the control path with expecially long hosts
-    controlPath = "~/.ssh/master-%C";
+    # Default config now goes into the "*" matchBlock instead
+    enableDefaultConfig = false;
 
     matchBlocks = {
+      "*" = {
+        controlMaster = "auto";
+        # Force the path to use the hash of %r%h%p, this avoids overrunning the 108 byte limite for the control path with expecially long hosts
+        controlPath = "~/.ssh/master-%C";
+      };
       "github.com" = {
         user = "git";
       };
