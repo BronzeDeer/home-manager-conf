@@ -9,8 +9,8 @@ let
   zsh-completion-sync = pkgs.fetchFromGitHub { #TODO: Get this into nixpkgs
     owner = "BronzeDeer";
     repo = "zsh-completion-sync";
-    rev = "v0.3.1";
-    hash = "sha256-XhZ7l8e2H1+W1oUkDrr8pQVPVbb3+1/wuu7MgXsTs+8=";
+    rev = "v0.3.2";
+    hash = "sha256-nTxeSUlYdl25MFZoLtpYTYq661iaik1RMj21ClOMY3c=";
   };
 in
 {
@@ -92,6 +92,10 @@ in
         source ${./.p10k.zsh}
       '')
       (lib.mkOrder 1500 ''
+        # Optmize compinit loading and reloading
+        zstyle ':completion-sync:compinit:experimental:fast-add' enabled true
+        zstyle ':completion-sync:compinit:experimental:no-caching' enabled true
+
         source ${zsh-completion-sync}/zsh-completion-sync.plugin.zsh
       '')
     ];
