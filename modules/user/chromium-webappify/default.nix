@@ -39,18 +39,17 @@ let
       prettyName = app.name;
       command = "${cfg.browserCommand} \"--app=${app.url}\" \"--user-data-dir=${dataDir}\" \"--class=${prettyName}\" \"--no-first-run\"";
       dataDir = strings.normalizePath "${app.dataDirBase}/${name}";
-      desktopEntry =
-        {
-          name = prettyName;
-          exec = command;
-          settings = {
-            # Set different window manager classes to avoid app grouping
-            StartupWMClass = prettyName;
-          };
-        }
-        // optionalAttrs (app.icon != null) {
-          icon = app.icon;
+      desktopEntry = {
+        name = prettyName;
+        exec = command;
+        settings = {
+          # Set different window manager classes to avoid app grouping
+          StartupWMClass = prettyName;
         };
+      }
+      // optionalAttrs (app.icon != null) {
+        icon = app.icon;
+      };
     }
   );
   # Convert human readable name to more machine-friendly format of lowercase alphanum and "_"

@@ -38,13 +38,12 @@ in
     home.file.autostart = {
       target = cfg.entrypoint;
       executable = true;
-      text =
-        ''
-          #!/${pkgs.stdenv.shell}
-          # debug
-          date +%F-%H-%M-%S >> ~/autostart-debug.log
-        ''
-        + cfg.scriptInline;
+      text = ''
+        #!/${pkgs.stdenv.shell}
+        # debug
+        date +%F-%H-%M-%S >> ~/autostart-debug.log
+      ''
+      + cfg.scriptInline;
     };
   };
 }

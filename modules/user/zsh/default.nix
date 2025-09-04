@@ -5,8 +5,11 @@
   ...
 }:
 let
-  sourceOmzPlugin = ( name : "source ${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/${name}/${name}.plugin.zsh");
-  zsh-completion-sync = pkgs.fetchFromGitHub { #TODO: Get this into nixpkgs
+  sourceOmzPlugin = (
+    name: "source ${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/${name}/${name}.plugin.zsh"
+  );
+  zsh-completion-sync = pkgs.fetchFromGitHub {
+    # TODO: Get this into nixpkgs
     owner = "BronzeDeer";
     repo = "zsh-completion-sync";
     rev = "v0.3.2";

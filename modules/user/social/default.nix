@@ -37,6 +37,6 @@ in
     dex ${signal}/share/applications/*.desktop
     dex ${telegram}/share/applications/*.desktop
   '';
-    #chromium  --app="http://web.whatsapp.com" --user-data-dir=$HOME/.messenger-browser-profiles/whatsapp &
-    #chromium  --app="http://www.facebook.com/messages/t/" --user-data-dir=${config.home.homeDirectory}/.messenger-browser-profiles/facebook &
+  #chromium  --app="http://web.whatsapp.com" --user-data-dir=$HOME/.messenger-browser-profiles/whatsapp &
+  #chromium  --app="http://www.facebook.com/messages/t/" --user-data-dir=${config.home.homeDirectory}/.messenger-browser-profiles/facebook &
 }
