@@ -9,8 +9,33 @@ rec {
   gtk-theme-name = "palenight";
   gtk-icon-name = "Moka";
 
-  font-name = "TeX Gyre Heros";
+  font-name = fonts.propo.name;
   font-size = 16;
+
+  fonts = {
+    mono = {
+      # The base mono font to be used
+      name = "Fira Mono";
+      pkg = pkgs.fira-mono;
+
+      # The mono base font with icons patched in
+      # Every application implementing font-fallback should use the base font and the relevant symbols font separately to avoid problems with patched fonts
+      icon-patched = {
+        name = "FiraCode Nerd Font Mono";
+        pkg = pkgs.nerd-fonts.fira-code;
+      };
+    };
+    propo = {
+      name = "TeX Gyre Heros";
+      pkg = pkgs.tex-gyre;
+    };
+    symbols = {
+      nerd-fonts = {
+        name = "Symbols Nerd Font";
+        pkg = pkgs.nerd-fonts.symbols-only;
+      };
+    };
+  };
 
   bg-primary = "#24283b";
   bg-primary-bright = "#1f2335";
