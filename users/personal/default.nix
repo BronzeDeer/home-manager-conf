@@ -33,6 +33,7 @@
     ../../modules/user/joystickwake
     ../../modules/user/pay-respects
     ../../modules/user/nixfmt
+    ../../modules/user/oh-my-posh
   ];
 
   # Let Home Manager install and manage itself.

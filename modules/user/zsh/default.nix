@@ -91,8 +91,6 @@ in
 
         # Prompt theme
         prompt off # Needed in case /etc/zshrc has already loaded a theme (like on nixos with `programs.zsh.enable = true;`)
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source ${./.p10k.zsh}
       '')
       (lib.mkOrder 1500 ''
         # Optmize compinit loading and reloading

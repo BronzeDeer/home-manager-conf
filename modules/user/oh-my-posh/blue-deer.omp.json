@@ -1,0 +1,199 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "background": "transparent",
+          "foreground": "white",
+          "style": "plain",
+          "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
+          "type": "os"
+        },
+        {
+          "background": "#29315A",
+          "foreground": "white",
+          "properties": {
+            "folder_icon": "...",
+            "folder_separator_icon": " <transparent> </>",
+            "home_icon": "\ueb06",
+            "style": "agnoster_short",
+            "max_depth": 2
+          },
+          "style": "powerline",
+          "powerline_symbol": "",
+          "template": " {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "background": "green",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}lightYellow{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}cyan{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ],
+          "foreground": "black",
+          "trailing_diamond": "\ue0b0",
+          "leading_diamond": "",
+          "properties": {
+            "fetch_status": true,
+            "github_icon": "",
+            "fetch_upstream_icon": true
+          },
+          "style": "diamond",
+          "template": " {{.UpstreamIcon}} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<#FF6F00> \uf046 {{ .Staging.String }}</>{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} 󱇨 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "type": "git"
+        },
+        {
+          "type": "go",
+          "style": "diamond",
+          "trailing_diamond": "",
+          "foreground": "#ffffff",
+          "background": "#0c606b",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "aws",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "\ue0b0",
+          "foreground": "#ffffff",
+          "background": "#FFA400",
+          "template": "  {{.Profile}}{{if .Region}}@{{.Region}}{{end}} "
+        },
+        {
+          "type": "gcp",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#ffffff",
+          "background": "#47888d",
+          "template": "  {{.Project}} :: {{.Account}} "
+        },
+        {
+          "type": "azd",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#000000",
+          "background": "#9ec3f0",
+          "template": "  {{ .DefaultEnvironment }} "
+        }
+      ],
+      "trailing_diamond": "\ue0b0 ",
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "filler": "",
+      "segments": [
+        {
+          "background": "#000000",
+          "background_templates": [
+            "{{ if gt .Code 0 }}#cc2222{{ end }}"
+          ],
+          "foreground": "#d3d7cf",
+          "foreground_templates": [
+            "{{ if eq .Code 0 }}#3EC669{{ end}}"
+          ],
+          "invert_powerline": true,
+          "powerline_symbol": "\ue0ba",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "powerline",
+          "template": " {{ if gt .Code 0 }}{{ reason .Code }}{{ else }}\uf42e{{ end }} ",
+          "type": "status"
+        },
+        {
+          "background": "#49404f",
+          "foreground": "#ffffff",
+          "leading_diamond": "\ue0ba",
+          "properties": {
+            "threshold": 500
+          },
+          "style": "diamond",
+          "template": " {{ .FormattedMs }} \uf252 ",
+          "trailing_diamond": "\ue0bc",
+          "type": "executiontime"
+        },
+        {
+          "type": "nix-shell",
+          "style": "diamond",
+          "leading_diamond": "\ue0ba",
+          "foreground": "blue",
+          "background": "transparent",
+          "template": " {{if eq .Type \"unknown\" }}{{else}}󱄅 {{ .Type }}{{ end }} "
+        },
+        {
+          "background": "#29315A",
+          "foreground": "#43CCEA",
+          "leading_diamond": "\ue0ba",
+          "trailing_diamond": "\ue0bc",
+          "style": "diamond",
+          "template": " {{ .UserName }}<transparent> </>{{ .HostName }} ",
+          "type": "session"
+        },
+        {
+          "background": "#29315A",
+          "foreground": "#3EC669",
+          "properties": {
+            "time_format": "15:04:05"
+          },
+          "leading_diamond": "\ue0ba",
+          "style": "diamond",
+          "template": " {{ .CurrentDate | date .Format }} ",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "root",
+          "style": "diamond",
+          "trailing_diamond": "",
+          "foreground": "#111111",
+          "background": "#ff0000",
+          "template": "  "
+        },
+        {
+          "foreground": "#ffffff",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#ff0000{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\u276f ",
+          "type": "status"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "tooltips": [
+    {
+      "style": "plain",
+      "type": "kubectl",
+      "leading_diamond": "\ue0ba",
+      "trailing_diamond": "\ue0bc",
+      "template": " 󱃾 {{.Context}} :: {{if .Namespace}}{{.Namespace}}{{else}}default{{end}} ",
+      "tips": [
+        "k",
+        "kubectl",
+        "k9s",
+        "helm",
+        "kind"
+      ]
+    }
+  ],
+  "tooltips_action": "prepend",
+
+  "console_title_template": "{{if .Root}} \u26a1 {{end}}{{.Folder | replace \"~\" \"🏚\" }} @ {{.HostName}}",
+  "version": 3
+}
