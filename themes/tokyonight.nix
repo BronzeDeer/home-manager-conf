@@ -8,6 +8,7 @@ rec {
 
   gtk-theme-name = "palenight";
   gtk-icon-name = "Moka";
+  gtk-color-scheme = "dark";
 
   font-name = fonts.propo.name;
   font-size = 16;

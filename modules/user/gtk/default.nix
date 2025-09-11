@@ -28,5 +28,6 @@
     theme = {
       name = theming.gtk-theme-name;
     };
+    colorScheme = theming.gtk-color-scheme;
   };
 }
