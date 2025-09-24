@@ -12,8 +12,8 @@ let
     # TODO: Get this into nixpkgs
     owner = "BronzeDeer";
     repo = "zsh-completion-sync";
-    rev = "v0.3.2";
-    hash = "sha256-nTxeSUlYdl25MFZoLtpYTYq661iaik1RMj21ClOMY3c=";
+    rev = "v0.3.3";
+    hash = "sha256-GTW4nLVW1/09aXNnZJuKs12CoalzWGKB79VsQ2a2Av4=";
   };
 in
 {
