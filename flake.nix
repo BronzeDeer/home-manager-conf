@@ -119,6 +119,7 @@
             ./modules/system/coolercontrol
             ./modules/system/gdk-pixbuf
             ./modules/system/diff-on-activation
+            ./modules/system/hyprland
           ];
         };
       };

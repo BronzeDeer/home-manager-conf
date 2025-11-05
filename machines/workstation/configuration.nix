@@ -83,7 +83,15 @@
   services.xserver.desktopManager = {
     xterm.enable = false;
   };
-  services.displayManager.defaultSession = "none+i3";
+
+  services.displayManager = {
+    defaultSession = "none+i3";
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+  };
+
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = with pkgs; [
