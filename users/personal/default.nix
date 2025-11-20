@@ -34,7 +34,7 @@
     ../../modules/user/pay-respects
     ../../modules/user/nixfmt
     ../../modules/user/oh-my-posh
-    ../../modules/user/hyprland
+    ../../modules/user/hyprland/all.nix
   ];
 
   # Let Home Manager install and manage itself.
