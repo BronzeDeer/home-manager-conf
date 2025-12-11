@@ -8,7 +8,7 @@ in
     nixGLPackage
   ];
 
-  nixGL = {
+  targets.genericLinux.nixGL = {
     defaultWrapper = "mesa"; # choose from options
   };
 }

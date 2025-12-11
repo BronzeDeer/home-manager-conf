@@ -24,7 +24,6 @@ with lib;
 
     extraPackages =
       haskellPackages: with haskellPackages; [
-        taffybar
       ];
     # Any extra dynamic, nix-controlled config can be written here
     config = pkgs.writeText "xmonad.hs" (
@@ -51,5 +50,6 @@ with lib;
   # Note that importedVariables is a hidden option that is used mostly internally by home-manager moduls
   xsession.importedVariables = [ "PATH" ];
 
-  services.taffybar.enable = true;
+  # Currently broken due to broken dependencies
+  services.taffybar.enable = false;
 }

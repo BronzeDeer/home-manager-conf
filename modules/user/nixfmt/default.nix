@@ -4,7 +4,7 @@
     pkgs.nixfmt-rfc-style
   ];
 
-  programs.git.extraConfig.mergetool.nixfmt = {
+  programs.git.settings.mergetool.nixfmt = {
     cmd = "nixfmt --mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"";
     trustExitCode = true;
   };

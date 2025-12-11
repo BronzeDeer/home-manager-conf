@@ -21,7 +21,8 @@
     ../../modules/user/libation
     ../../modules/user/auto-start
     ../../modules/user/blueman-autostart
-    ../../modules/user/deadd
+    # Currently broken due to change in GI.Gdk dependency
+    #../../modules/user/deadd
     ../../modules/user/ausweisapp
     ../../modules/user/keepassxc
     ../../modules/user/libreoffice
@@ -47,20 +48,21 @@
 
   programs.git = {
     enable = true;
-    aliases = {
-      quicklog = "log --oneline --graph --decorate";
-      fpush = "push --force-with-lease --force-if-includes";
-      ffmerge = "merge --ff-only";
-      fap = "fetch --all --prune";
-      rip = ''!f() { git rebase -i --autosquash --autostash `git merge-base HEAD ''${1:-origin/HEAD}`; }; f'';
-      alias = "config --get-regexp 'alias.*'";
-      reuse = "commit --reset-author --no-edit -C";
-    };
-    extraConfig = {
+    settings = {
       pull.rebase = true;
       rerere.enabled = true;
       core.editor = "vim";
       core.autocrlf = "input";
+
+      alias = {
+        quicklog = "log --oneline --graph --decorate";
+        fpush = "push --force-with-lease --force-if-includes";
+        ffmerge = "merge --ff-only";
+        fap = "fetch --all --prune";
+        rip = ''!f() { git rebase -i --autosquash --autostash `git merge-base HEAD ''${1:-origin/HEAD}`; }; f'';
+        alias = "config --get-regexp 'alias.*'";
+        reuse = "commit --reset-author --no-edit -C";
+      };
 
       user = {
         email = "pepper@bronze-deer.de";

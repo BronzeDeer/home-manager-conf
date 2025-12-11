@@ -29,7 +29,7 @@
       extraPackages = with pkgs; [
         # Video acceleration
         nvidia-vaapi-driver
-        vaapiVdpau
+        libva-vdpau-driver
       ];
     };
 
