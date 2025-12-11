@@ -8,13 +8,7 @@ let
   sourceOmzPlugin = (
     name: "source ${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/${name}/${name}.plugin.zsh"
   );
-  zsh-completion-sync = pkgs.fetchFromGitHub {
-    # TODO: Get this into nixpkgs
-    owner = "BronzeDeer";
-    repo = "zsh-completion-sync";
-    rev = "v0.3.3";
-    hash = "sha256-GTW4nLVW1/09aXNnZJuKs12CoalzWGKB79VsQ2a2Av4=";
-  };
+  zsh-completion-sync = pkgs.zsh-completion-sync;
 in
 {
   home.packages = [
@@ -97,7 +91,7 @@ in
         zstyle ':completion-sync:compinit:experimental:fast-add' enabled true
         zstyle ':completion-sync:compinit:experimental:no-caching' enabled true
 
-        source ${zsh-completion-sync}/zsh-completion-sync.plugin.zsh
+        source ${zsh-completion-sync}/share/zsh-completion-sync/zsh-completion-sync.plugin.zsh
       '')
     ];
 
