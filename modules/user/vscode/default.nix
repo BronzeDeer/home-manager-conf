@@ -32,6 +32,9 @@ in
         "terminal.integrated.fontLigatures.enabled" = false;
         "terminal.integrated.gpuAcceleration" = "on";
 
+        "terminal.integrated.suggest.cdPath" = "off";
+        "terminal.integrated.suggest.enabled" = false;
+
         "python.analysis.typeCheckingMode" = "strict";
       };
 
