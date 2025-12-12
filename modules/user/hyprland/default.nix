@@ -60,6 +60,7 @@
       # TODO: should be machine relative/read from xkb
       input = {
         kb_layout = "de";
+        kb_variant = "nodeadkeys";
         kb_options = config.home.keyboard.options;
         numlock_by_default = true;
       };

@@ -111,8 +111,14 @@
   ];
 
   # Configure keymap in X11
-  services.xserver.xkb.layout = "de";
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "nodeadkeys";
+  };
+
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
+  # Needed so localectl, xwayland and sddm don't get confused
+  services.xserver.exportConfiguration = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

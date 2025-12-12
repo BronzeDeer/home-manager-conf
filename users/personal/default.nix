@@ -1,4 +1,4 @@
-{ config, pkgs, ... }@inputs:
+{ config, pkgs, osConfig, ... }@inputs:
 
 {
   imports = [
@@ -80,6 +80,9 @@
   };
 
   xsession.numlock.enable = true;
+
+  # Under wayland the automatic cloning of layout from the machine can get confused, so take it from the osConfig directly if available
+  home.keyboard.layout = osConfig.services.xserver.xkb.layout or null;
 
   # Import allowed Yubikeys for sudo and login
   home.file.u2fkeys = {
