@@ -86,7 +86,7 @@
         "$mod, SPACE, layoutmsg, orientationcycle left top center"
         "$mod, Return, layoutmsg, swapwithmaster ignoremaster auto"
 
-        "CTRL ALT, L, exec, hyprlock"
+        "CTRL ALT, L, exec, hyprlock --no-fade-in" # If the lock is user triggered it should look and feel immediate, the slow fade is only for the idle
 
       ]
       ++ (
@@ -189,7 +189,8 @@
       enable = true;
       settings = {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+          # avoid starting multiple hyprlock instances.
+          lock_cmd = "pidof hyprlock || hyprlock --grace 5"; # give a 5 second grace to keep the screen alive without needing prompting. Aligns with the hyprlock fade-in time
           before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
         };
