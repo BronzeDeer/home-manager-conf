@@ -148,12 +148,10 @@
         animations = {
           enabled = true;
           fade_in = {
-            duration = 300;
-            bezier = "easeOutQuint";
+            animation = "fade, 1, 50, default, default";
           };
           fade_out = {
-            duration = 300;
-            bezier = "easeOutQuint";
+            animation = "fade, 1, 5, default, default";
           };
         };
 
