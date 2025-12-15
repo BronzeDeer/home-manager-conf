@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     grimblast # screenshot tool
     brightnessctl # needed for screen dimming via hypridle
+    wl-clipboard-rs # terminal clipboard tools
   ];
 
   wayland.windowManager.hyprland = {
