@@ -29,7 +29,7 @@
       };
       decoration = {
         active_opacity = 1;
-        inactive_opacity = 0.9;
+        inactive_opacity = 0.95;
         rounding = 5;
       };
       # TODO: parse from machine config field if available (need to create that module first)
