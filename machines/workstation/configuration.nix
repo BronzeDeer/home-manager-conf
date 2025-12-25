@@ -11,10 +11,10 @@
     # Monitor setup
     ./autorandr.nix
     # Enable Pipewire for sound
-    ./pipewire
+    ../../modules/system/pipewire
     # Steam needs to be enabled on system-level due to firewall changes among other things
-    ./steam
-    ./bluetooth
+    /../../modules/system/steam
+    /../../modules/system/bluetooth
   ];
 
   nix.settings.experimental-features = [
