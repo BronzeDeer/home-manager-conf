@@ -122,7 +122,48 @@
             ./modules/system/hyprland
           ];
         };
+
+        nixos-laptop = lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.joel = import ./users/personal;
+
+              home-manager.extraSpecialArgs = {
+                inherit nixgl;
+                theming = import themes/tokyonight.nix {
+                  inherit pkgs;
+                };
+                inherit nix-index-database;
+
+              };
+            }
+
+            ./machines/laptop/configuration.nix
+            ./modules/system/nvidia
+            ./modules/system/docker
+            ./modules/system/file-manager-support
+            # Needs to be included on system level due to optional cuda Support in nixpkgs.config
+            # ./modules/system/blender
+            ./modules/system/printing
+            ./modules/system/nix-storage-optimisation
+            ./modules/system/ausweisapp-firewall
+            ./modules/system/cuda-maintainers-cache
+            ./modules/system/fwupd
+            ./modules/system/age-yubikey
+            ./modules/system/coolercontrol
+            ./modules/system/gdk-pixbuf
+            ./modules/system/diff-on-activation
+            ./modules/system/hyprland
+          ];
+        };
       };
+
       homeConfigurations.joel = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
