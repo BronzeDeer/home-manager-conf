@@ -170,8 +170,14 @@
     sudo.u2fAuth = true;
   };
 
-  # Tell user we are waiting for u2f input/touch
-  security.pam.u2f.settings.cue = true;
+  security.pam.u2f.settings = {
+    # Tell user we are waiting for u2f input/touch
+    cue = true;
+    # The keyid in the u2f key is dependent on "origin" which defaults to hostname if unset
+    # This is the automatically derived origin that was created when the u2f_keys file was created
+    # This ensures that this works across machines
+    origin = "pam://nixos-workstation";
+  };
 
   # List services that you want to enable:
 
