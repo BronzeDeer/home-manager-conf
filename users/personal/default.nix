@@ -36,6 +36,7 @@
     ../../modules/user/nixfmt
     ../../modules/user/oh-my-posh
     ../../modules/user/hyprland/all.nix
+    ../../modules/user/fancy-shell
   ];
 
   # Let Home Manager install and manage itself.
