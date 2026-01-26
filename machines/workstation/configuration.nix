@@ -138,6 +138,7 @@
       "docker" # Enable interacting with the docker daemon
       "scanner"
       "lp" # Enable interacting with scanners
+      "cdrom" # Allow access to CD/DVD/BD disk drivers
     ];
     packages = with pkgs; [
       firefox

@@ -120,6 +120,7 @@
             ./modules/system/gdk-pixbuf
             ./modules/system/diff-on-activation
             ./modules/system/hyprland
+            ./modules/system/makemkv
           ];
         };
 
