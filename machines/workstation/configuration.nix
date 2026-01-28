@@ -13,8 +13,8 @@
     # Enable Pipewire for sound
     ../../modules/system/pipewire
     # Steam needs to be enabled on system-level due to firewall changes among other things
-    /../../modules/system/steam
-    /../../modules/system/bluetooth
+    ../../modules/system/steam
+    ../../modules/system/bluetooth
   ];
 
   nix.settings.experimental-features = [
