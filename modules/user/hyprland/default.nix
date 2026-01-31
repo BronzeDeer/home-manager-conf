@@ -9,6 +9,7 @@
 {
   home.packages = with pkgs; [
     grimblast # screenshot tool
+    kooha # screen recording tool
     brightnessctl # needed for screen dimming via hypridle
     wl-clipboard-rs # terminal clipboard tools
   ];
@@ -83,6 +84,7 @@
         "$mod, F, fullscreen"
         "CTRL ALT, T, exec, kitty" # TODO: make terminal dynamic
         ", Print, exec, grimblast copy area"
+        "SHIFT, Print, exec, kooha"
         "$mod, TAB, exec, rofi -show drun -theme grid"
         "$mod SHIFT, C, killactive"
         "$mod, J, layoutmsg, cycleprev"
