@@ -34,6 +34,15 @@
         overlays = [
           nixgl.overlay
           (self: super: {
+            zsh-autocomplete = super.zsh-autocomplete.overrideAttrs (old: {
+              version = "bbba73ebdc7c01323e09d4d518e51e2d6847ccc2";
+              src = super.fetchFromGitHub {
+                owner = "marlonrichert";
+                repo = "zsh-autocomplete";
+                rev = "bbba73ebdc7c01323e09d4d518e51e2d6847ccc2";
+                hash = "sha256-998rYEyYD67XleSDbqvnQptRrGuG2N2AgFvTpFWvoV8=";
+              };
+            });
             # Use yet-unmerged fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
             autorandr = super.autorandr.overrideAttrs (old: {
               version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";

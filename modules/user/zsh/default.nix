@@ -50,6 +50,7 @@ in
           # Do not try to match previous path segments, this interferes with the unambiguous completion
           zstyle ':completion:*' path-completion false
 
+          zstyle ':autocomplete:*' append-semicolon no
 
           ${sourceOmzPlugin "colored-man-pages"}
           ${sourceOmzPlugin "colorize"}
