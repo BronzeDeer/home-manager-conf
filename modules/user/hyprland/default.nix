@@ -72,6 +72,13 @@
       };
 
       "$mod" = "SUPER";
+
+      bindm = [
+        # Move/resize windows with mainMod + LMB/RMB and dragging
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
+
       bind = [
         "$mod, F, fullscreen"
         "CTRL ALT, T, exec, kitty" # TODO: make terminal dynamic
