@@ -63,6 +63,15 @@
                 hash = "sha256-VRL82w+e2yIBP1tFO4XbmqnqVU8gFgMXo68WuVV7ix0=";
               };
             });
+            zsh-nix-shell = super.zsh-nix-shell.overrideAttrs (old: {
+              version = "pr-44";
+              src = super.fetchFromGitHub {
+                owner = "chisui";
+                repo = "zsh-nix-shell";
+                rev = "dd9b27b4b54bef0392395a8606d33a9942d0dbf6";
+                hash = "sha256-/B7TRMs5zbPW7vtkJvlAS++N0m3qY0zqCHjRPwXiXPI=";
+              };
+            });
             # This was already manually added as a fix for ghc 9.6, currently nixpkgs is looking for a more sustainable solution (getting the patch onto hackage)
             # For our purpose taking the patch forward is fine though
             # haskellPackages = super.haskellPackages.extend (
