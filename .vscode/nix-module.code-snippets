@@ -25,8 +25,22 @@
 			"\tconfig,",
 			"\t...",
 			"}@inputs:",
+			"\tlet",
+			"\t\tcfg = config.bd.$1;",
+			"\tin",
 			"{",
-			"\t$0",
+			"\t## If you want to do optional imports, they cannot rely on any value in config/cfg",
+			"\t# imports = [",
+			"\t#  ",
+			"\t# ];",
+			"",
+			"\toptions.bd.$1 = {",
+			"\t\tenable = lib.mkEnableOption \"$1\";",
+			"\t};",
+			"",
+			"\tconfig = lib.mkIf cfg.enable {",
+			"\t\t$0",
+			"\t};",
 			"}"
 		]
 	}
