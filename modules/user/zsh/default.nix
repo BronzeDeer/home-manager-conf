@@ -54,7 +54,6 @@ in
 
           ${sourceOmzPlugin "colored-man-pages"}
           ${sourceOmzPlugin "colorize"}
-          ${sourceOmzPlugin "command-not-found"}
 
           ${sourceOmzPlugin "gh"} # Should probably make this one conditional on gh being installed
           ${sourceOmzPlugin "vi-mode"}
