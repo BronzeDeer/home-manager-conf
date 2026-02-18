@@ -2,11 +2,11 @@
 {
   home.packages = with pkgs; [
     # Thunar is a simple but fully-featured gtk based file manager
-    xfce.thunar
+    thunar
     # Support to automatic volume management of drives and media (like mtp)
-    xfce.thunar-volman
+    thunar-volman
     # Allow compressing from gui
-    xfce.thunar-archive-plugin
+    thunar-archive-plugin
   ];
 
   # Make thunar default for opening directories

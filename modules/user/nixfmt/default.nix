@@ -1,7 +1,7 @@
 { pkgs, lib, ... }@inputs:
 {
   home.packages = [
-    pkgs.nixfmt-rfc-style
+    pkgs.nixfmt
   ];
 
   programs.git.settings.mergetool.nixfmt = {
