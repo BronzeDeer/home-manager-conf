@@ -6,6 +6,11 @@
   ...
 }@inputs:
 {
+
+  imports = [
+    ./nix-or-nom
+  ];
+
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
@@ -24,18 +29,8 @@
     #theme = TODO;
   };
 
-  home.packages = with pkgs; [
-    nix-output-monitor
-  ];
-
   home.shellAliases = {
-
     cat = "bat";
-
-    # nom aliases
-    nix = "nom";
-    nix-shell = "nom-shell";
-    nix-build = "nom-build";
   };
 
   programs.skim = {

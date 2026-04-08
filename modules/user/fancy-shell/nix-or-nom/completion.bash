@@ -1,0 +1,1 @@
+complete -F _complete_nix nix-or-nom
