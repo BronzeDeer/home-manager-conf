@@ -49,6 +49,9 @@
 
   programs.git = {
     enable = true;
+
+    signing.format = "openpgp";
+
     settings = {
       pull.rebase = true;
       rerere.enabled = true;

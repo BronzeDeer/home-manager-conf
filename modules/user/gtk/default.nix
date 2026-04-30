@@ -29,5 +29,7 @@
       name = theming.gtk-theme-name;
     };
     colorScheme = theming.gtk-color-scheme;
+
+    gtk4.theme = config.gtk.theme;
   };
 }
