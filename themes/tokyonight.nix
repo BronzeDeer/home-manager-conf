@@ -74,5 +74,6 @@ rec {
   nvim-theme = {
     plugin = pkgs.vimPlugins.tokyonight-nvim;
     config = "colorscheme tokyonight";
+    type = "viml";
   };
 }
