@@ -32,6 +32,8 @@ in
         "terminal.integrated.fontLigatures.enabled" = false;
         "terminal.integrated.gpuAcceleration" = "on";
 
+        "terminal.integrated.enableKittyKeyboardProtocol" = false;
+
         "terminal.integrated.suggest.cdPath" = "off";
         "terminal.integrated.suggest.enabled" = false;
 
