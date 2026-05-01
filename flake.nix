@@ -64,7 +64,6 @@
       formatter.${pkgs.stdenv.hostPlatform.system} = nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.nixfmt-tree;
       nixosConfigurations = {
         nixos-workstation = lib.nixosSystem {
-          inherit system;
           inherit pkgs;
 
           modules = [
@@ -105,7 +104,6 @@
         };
 
         nixos-laptop = lib.nixosSystem {
-          inherit system;
           inherit pkgs;
 
           modules = [
