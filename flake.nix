@@ -34,16 +34,7 @@
         overlays = [
           nixgl.overlay
           (self: super: {
-            zsh-autocomplete = super.zsh-autocomplete.overrideAttrs (old: {
-              version = "bbba73ebdc7c01323e09d4d518e51e2d6847ccc2";
-              src = super.fetchFromGitHub {
-                owner = "marlonrichert";
-                repo = "zsh-autocomplete";
-                rev = "bbba73ebdc7c01323e09d4d518e51e2d6847ccc2";
-                hash = "sha256-998rYEyYD67XleSDbqvnQptRrGuG2N2AgFvTpFWvoV8=";
-              };
-            });
-            # Use yet-unmerged fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
+            # Use yet-unreleased fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
             autorandr = super.autorandr.overrideAttrs (old: {
               version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
               src = super.fetchFromGitHub {
@@ -51,16 +42,6 @@
                 repo = "autorandr";
                 rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
                 hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
-              };
-            });
-            picom = super.picom.overrideAttrs (old: {
-              # Temporary fix for #1398
-              version = "v12";
-              src = super.fetchFromGitHub {
-                owner = "yshui";
-                repo = "picom";
-                rev = "0f3784f3069d9f949af3cd43d1d34b170adf6b4d"; # PR#1415
-                hash = "sha256-VRL82w+e2yIBP1tFO4XbmqnqVU8gFgMXo68WuVV7ix0=";
               };
             });
             zsh-nix-shell = super.zsh-nix-shell.overrideAttrs (old: {
@@ -72,25 +53,6 @@
                 hash = "sha256-/B7TRMs5zbPW7vtkJvlAS++N0m3qY0zqCHjRPwXiXPI=";
               };
             });
-            # This was already manually added as a fix for ghc 9.6, currently nixpkgs is looking for a more sustainable solution (getting the patch onto hackage)
-            # For our purpose taking the patch forward is fine though
-            # haskellPackages = super.haskellPackages.extend (
-            #   hself: hsuper: {
-            #     ConfigFile = self.haskell.lib.compose.overrideCabal (drv: {
-            #       broken = false;
-            #       editedCabalFile = null;
-            #       buildDepends = drv.buildDepends or [ ] ++ [ hself.HUnit ];
-            #       patches = [
-            #         (pkgs.fetchpatch {
-            #           # https://github.com/jgoerzen/configfile/pull/12
-            #           name = "ConfigFile-pr-12.patch";
-            #           url = "https://github.com/jgoerzen/configfile/compare/d0a2e654be0b73eadbf2a50661d00574ad7b6f87...83ee30b43f74d2b6781269072cf5ed0f0e00012f.patch";
-            #           sha256 = "sha256-b7u9GiIAd2xpOrM0MfILHNb6Nt7070lNRIadn2l3DfQ=";
-            #         })
-            #       ];
-            #     }) hsuper.ConfigFile;
-            #   }
-            # );
           })
         ];
       };
