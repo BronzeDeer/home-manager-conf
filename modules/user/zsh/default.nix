@@ -88,8 +88,8 @@ in
       '')
       (lib.mkOrder 1500 ''
         # Optmize compinit loading and reloading
-        zstyle ':completion-sync:compinit:experimental:fast-add' enabled true
-        zstyle ':completion-sync:compinit:experimental:no-caching' enabled true
+        zstyle ':completion-sync:compinit:optimizations:fast-add' enabled true
+        zstyle ':completion-sync:compinit:optimizations:no-caching' enabled true
 
         source ${zsh-completion-sync}/share/zsh-completion-sync/zsh-completion-sync.plugin.zsh
       '')

@@ -15,6 +15,7 @@
   ];
 
   wayland.windowManager.hyprland = {
+    configType = "hyprlang";
     enable =
       lib.warnIfNot (osConfig == null || osConfig.programs.hyprland.enable)
         "When using hyprland via the home-manager module on nixos, programs.hyperland.enable should be set in the nixos config as well"
