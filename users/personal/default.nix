@@ -37,6 +37,8 @@
     ../../modules/user/oh-my-posh
     ../../modules/user/hyprland/all.nix
     ../../modules/user/fancy-shell
+    ../../modules/user/mergiraf
+    ../../modules/user/difftastic
   ];
 
   # Let Home Manager install and manage itself.
