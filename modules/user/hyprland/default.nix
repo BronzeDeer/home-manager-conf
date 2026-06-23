@@ -34,6 +34,12 @@
         inactive_opacity = 0.95;
         rounding = 5;
       };
+
+      misc = {
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+      };
+
       # TODO: parse from machine config field if available (need to create that module first)
       monitorv2 = [
         {
