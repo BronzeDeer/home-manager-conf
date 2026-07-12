@@ -57,6 +57,8 @@
 
   hardware.usb-modeswitch.enable = true; # Needed for certain usb wifi adapters including android usb tethering
 
+  hardware.nvidia.branch = "legacy_580"; # Required since the stable branch has abandoned support for 965M
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
