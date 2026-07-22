@@ -39,6 +39,8 @@
     ../../modules/user/fancy-shell
     ../../modules/user/mergiraf
     ../../modules/user/difftastic
+
+    ./fonts
   ];
 
   # Let Home Manager install and manage itself.
