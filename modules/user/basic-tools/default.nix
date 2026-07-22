@@ -18,5 +18,7 @@
     btop
 
     magic-wormhole-rs
+
+    usbutils # lsusb and friends
   ];
 }
