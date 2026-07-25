@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     #Needed for mtp mounts
-    jmtpfs
+    go-mtpfs
   ];
 
   # Enable auto-mounting of disks
