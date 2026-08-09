@@ -26,60 +26,67 @@
     let
       system = "x86_64-linux";
 
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
+      confAndOverlays = {
+        nixpkgs = {
+          config = {
+            allowUnfree = true;
+          };
+          overlays = [
+            nixgl.overlay
+            (self: super: {
+              # Use yet-unreleased fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
+              autorandr = super.autorandr.overrideAttrs (old: {
+                version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+                src = super.fetchFromGitHub {
+                  owner = "phillipberndt";
+                  repo = "autorandr";
+                  rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
+                  hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
+                };
+              });
+              zsh-nix-shell = super.zsh-nix-shell.overrideAttrs (old: {
+                version = "pr-44";
+                src = super.fetchFromGitHub {
+                  owner = "chisui";
+                  repo = "zsh-nix-shell";
+                  rev = "dd9b27b4b54bef0392395a8606d33a9942d0dbf6";
+                  hash = "sha256-/B7TRMs5zbPW7vtkJvlAS++N0m3qY0zqCHjRPwXiXPI=";
+                };
+              });
+            })
+          ];
         };
-        overlays = [
-          nixgl.overlay
-          (self: super: {
-            # Use yet-unreleased fix for serial-no over text (https://github.com/phillipberndt/autorandr/pull/410)
-            autorandr = super.autorandr.overrideAttrs (old: {
-              version = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
-              src = super.fetchFromGitHub {
-                owner = "phillipberndt";
-                repo = "autorandr";
-                rev = "daf874efc80b6078ca96bf0b41ea09761a6afd85";
-                hash = "sha256-16agdh9dA5nyxWT+xcXiczvm6QxvS7jQBM3LPP+ucj4=";
-              };
-            });
-            zsh-nix-shell = super.zsh-nix-shell.overrideAttrs (old: {
-              version = "pr-44";
-              src = super.fetchFromGitHub {
-                owner = "chisui";
-                repo = "zsh-nix-shell";
-                rev = "dd9b27b4b54bef0392395a8606d33a9942d0dbf6";
-                hash = "sha256-/B7TRMs5zbPW7vtkJvlAS++N0m3qY0zqCHjRPwXiXPI=";
-              };
-            });
-          })
-        ];
+      };
+
+      hmSpecialArgs = {
+        inherit nixgl;
+        theming = import themes/tokyonight.nix;
+        inherit nix-index-database;
+
+      };
+      hmSpecialArgsNixOS = {
+        home-manager.extraSpecialArgs = hmSpecialArgs;
       };
 
       lib = nixpkgs.lib;
 
     in
     {
-      formatter.${pkgs.stdenv.hostPlatform.system} = nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.nixfmt-tree;
+      # TODO: Replace with multi-system config
+      formatter.${system} =
+        nixpkgs.legacyPackages.${system}.nixfmt-tree;
       nixosConfigurations = {
         nixos-workstation = lib.nixosSystem {
-          inherit pkgs;
 
           modules = [
+            confAndOverlays
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.joel = import ./users/personal;
-
-              home-manager.extraSpecialArgs = {
-                inherit nixgl;
-                theming = import themes/tokyonight.nix;
-                inherit nix-index-database;
-
-              };
             }
+            hmSpecialArgsNixOS
 
             ./machines/workstation/configuration.nix
             ./modules/system/nvidia
@@ -103,22 +110,17 @@
         };
 
         nixos-laptop = lib.nixosSystem {
-          inherit pkgs;
 
           modules = [
+            confAndOverlays
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.joel = import ./users/personal;
 
-              home-manager.extraSpecialArgs = {
-                inherit nixgl;
-                theming = import themes/tokyonight.nix;
-                inherit nix-index-database;
-
-              };
             }
+            hmSpecialArgsNixOS
 
             ./machines/laptop/configuration.nix
             ./modules/system/nvidia
@@ -142,10 +144,10 @@
       };
 
       homeConfigurations.joel = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
         modules = [
           ./users/personal
+
+          confAndOverlays
           {
             # When imported via the nixos module those values get set automatically based on how the host is configured
             # For the standalone version we need to specify username and home path
@@ -154,14 +156,10 @@
           }
         ];
 
-        extraSpecialArgs = {
-          inherit nixgl;
-          theming = import themes/tokyonight.nix;
-        };
+        extraSpecialArgs = hmSpecialArgs;
       };
 
       homeConfigurations.jpe = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
 
         modules = [
           ./users/work
@@ -173,11 +171,7 @@
           }
         ];
 
-        extraSpecialArgs = {
-          inherit nixgl;
-          theming = import themes/tokyonight.nix;
-          inherit nix-index-database;
-        };
+        extraSpecialArgs = hmSpecialArgs;
       };
     };
 }
