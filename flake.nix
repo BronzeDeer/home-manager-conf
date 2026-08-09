@@ -53,6 +53,27 @@
                   hash = "sha256-/B7TRMs5zbPW7vtkJvlAS++N0m3qY0zqCHjRPwXiXPI=";
                 };
               });
+              # Hacky workaround until https://github.com/NixOS/nixpkgs/pull/549732 lands in unstable
+              zsh-autocomplete = super.zsh-autocomplete.overrideAttrs (old: {
+                src =
+                  (super.fetchFromGitHub {
+                    owner = "marlonrichert";
+                    repo = "zsh-autocomplete";
+                    rev = old.version;
+                    sha256 = "sha256-XKreHmT3vkvYWk8IbGWv9RR/V5nIohcE/ck1SPjI++U=";
+                    fetchSubmodules = true;
+                  }).overrideAttrs
+                    (oldAttrs: {
+                      env = oldAttrs.env or { } // {
+                        GIT_CONFIG_COUNT = 1;
+                        GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
+                        GIT_CONFIG_VALUE_0 = "git@github.com:";
+                      };
+                    });
+                installPhase = old.installPhase + ''
+                  cp -R z-async $out/share/zsh-autocomplete/z-async
+                '';
+              });
             })
           ];
         };
