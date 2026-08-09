@@ -1,4 +1,9 @@
-{ config, pkgs, osConfig, ... }@inputs:
+{
+  config,
+  pkgs,
+  osConfig,
+  ...
+}@inputs:
 
 {
   imports = [
@@ -67,7 +72,7 @@
         fpush = "push --force-with-lease --force-if-includes";
         ffmerge = "merge --ff-only";
         fap = "fetch --all --prune";
-        rip = ''!f() { git rebase -i --autosquash --autostash `git merge-base HEAD ''${1:-origin/HEAD}`; }; f'';
+        rip = "!f() { git rebase -i --autosquash --autostash `git merge-base HEAD \${1:-origin/HEAD}`; }; f";
         alias = "config --get-regexp 'alias.*'";
         reuse = "commit --reset-author --no-edit -C";
       };

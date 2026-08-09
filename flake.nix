@@ -73,8 +73,7 @@
     in
     {
       # TODO: Replace with multi-system config
-      formatter.${system} =
-        nixpkgs.legacyPackages.${system}.nixfmt-tree;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
       nixosConfigurations = {
         nixos-workstation = lib.nixosSystem {
 

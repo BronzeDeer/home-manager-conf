@@ -19,7 +19,6 @@ in
 
     package = (config.lib.nixGL.wrap pkgs.vscode);
 
-
     profiles.default = {
       userSettings = {
         "editor.fontFamily" = monoFont.name;

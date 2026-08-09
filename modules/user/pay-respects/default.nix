@@ -4,9 +4,9 @@
   config,
   ...
 }@inputs:
-  let
-    cfg = config.bd.pay-respects;
-  in
+let
+  cfg = config.bd.pay-respects;
+in
 {
   options.bd.pay-respects = {
     enable = lib.mkOption {
@@ -23,7 +23,7 @@
       '';
     };
   };
-  
+
   # If our containing flake provides the precompiled nix-index-database module, use that
   imports = lib.optionals (inputs ? "nix-index-database") [
     inputs.nix-index-database.homeModules.nix-index
@@ -39,7 +39,7 @@
       enableNushellIntegration = config.programs.nushell.enable;
 
       # pay-respects registers the cnf handler by default, if we do not want that we have to pass --nocnf
-      options = lib.optionals (! cfg.enableCommandNotFound) [
+      options = lib.optionals (!cfg.enableCommandNotFound) [
         "--nocnf"
       ];
     };

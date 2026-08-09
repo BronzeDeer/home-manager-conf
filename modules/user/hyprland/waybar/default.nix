@@ -51,7 +51,7 @@ in
 
         "modules-left" = [
           "group/user"
-          
+
           "custom/left_div#1"
           "hyprland/workspaces"
           "custom/right_div#1"
