@@ -45,6 +45,7 @@
     ../../modules/user/mergiraf
     ../../modules/user/difftastic
     ../../modules/user/graphic-design-tools
+    ../../modules/user/blender
 
     ./fonts
   ];

@@ -5,22 +5,12 @@
   ...
 }:
 {
-  options = {
-    # Instead of enabling cudaSupport for all packages, set custom flag to indicate that cudaSupport is available on this system
-    _cudaSupportAvailable = lib.options.mkOption {
-      default = true;
-      type = lib.types.bool;
-      readOnly = true;
-    };
-  };
 
   config = {
 
     environment.systemPackages = with pkgs; [
       # Allow setting fancurves for nvidia gpu
       gwe
-      # Needed by some packages to support cuda acceleration
-      cudaPackages.cudatoolkit
     ];
 
     hardware.graphics = {

@@ -89,14 +89,12 @@
 
             ./machines/workstation/configuration.nix
             ./modules/system/nvidia
+            ./modules/system/cuda-support-and-cache
             ./modules/system/docker
             ./modules/system/file-manager-support
-            # Needs to be included on system level due to optional cuda Support in nixpkgs.config
-            ./modules/system/blender
             ./modules/system/printing
             ./modules/system/nix-storage-optimisation
             ./modules/system/ausweisapp-firewall
-            ./modules/system/cuda-maintainers-cache
             ./modules/system/fwupd
             ./modules/system/age-yubikey
             ./modules/system/coolercontrol
@@ -125,12 +123,9 @@
             ./modules/system/nvidia
             ./modules/system/docker
             ./modules/system/file-manager-support
-            # Needs to be included on system level due to optional cuda Support in nixpkgs.config
-            # ./modules/system/blender
             ./modules/system/printing
             ./modules/system/nix-storage-optimisation
             ./modules/system/ausweisapp-firewall
-            ./modules/system/cuda-maintainers-cache
             ./modules/system/fwupd
             ./modules/system/age-yubikey
             ./modules/system/coolercontrol
