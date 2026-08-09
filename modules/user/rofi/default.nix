@@ -1,5 +1,8 @@
 # Adopted from github.com/sherubthakur/dotfiles
 { pkgs, theming, ... }:
+let
+  themeConfig = theming { inherit pkgs; };
+in
 {
 
   home.packages = with pkgs; [
@@ -27,14 +30,14 @@
         "emoji"
       ];
     };
-    font = "${theming.font-name} ${toString theming.font-size}";
+    font = "${themeConfig.font-name} ${toString themeConfig.font-size}";
   };
   home.file.".config/rofi/colors.rasi".text = ''
     * {
-      accent: ${theming.accent-primary};
-      accent-secondary: ${theming.accent-secondary};
-      background: ${theming.bg-primary};
-      foreground: ${theming.fg-primary};
+      accent: ${themeConfig.accent-primary};
+      accent-secondary: ${themeConfig.accent-secondary};
+      background: ${themeConfig.bg-primary};
+      foreground: ${themeConfig.fg-primary};
     }
   '';
   home.file.".config/rofi/grid.rasi".source = ./grid.rasi;

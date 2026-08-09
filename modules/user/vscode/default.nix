@@ -5,8 +5,9 @@
   ...
 }:
 let
+  themeConfig = theming { inherit pkgs; };
   # Vscode does not implement font fallback, so it needs a single patched font
-  monoFont = theming.fonts.mono.icon-patched;
+  monoFont = themeConfig.fonts.mono.icon-patched;
 in
 {
   home.packages = [
@@ -22,7 +23,7 @@ in
     profiles.default = {
       userSettings = {
         "editor.fontFamily" = monoFont.name;
-        "editor.fontSize" = theming.font-size;
+        "editor.fontSize" = themeConfig.font-size;
         "files.eol" = "\n";
         "editor.tabSize" = 2;
         "editor.renderWhitespace" = "all";

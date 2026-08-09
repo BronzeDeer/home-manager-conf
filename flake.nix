@@ -75,9 +75,7 @@
 
               home-manager.extraSpecialArgs = {
                 inherit nixgl;
-                theming = import themes/tokyonight.nix {
-                  inherit pkgs;
-                };
+                theming = import themes/tokyonight.nix;
                 inherit nix-index-database;
 
               };
@@ -116,9 +114,7 @@
 
               home-manager.extraSpecialArgs = {
                 inherit nixgl;
-                theming = import themes/tokyonight.nix {
-                  inherit pkgs;
-                };
+                theming = import themes/tokyonight.nix;
                 inherit nix-index-database;
 
               };
@@ -160,9 +156,7 @@
 
         extraSpecialArgs = {
           inherit nixgl;
-          theming = import themes/tokyonight.nix {
-            inherit pkgs;
-          };
+          theming = import themes/tokyonight.nix;
         };
       };
 
@@ -181,9 +175,7 @@
 
         extraSpecialArgs = {
           inherit nixgl;
-          theming = import themes/tokyonight.nix {
-            inherit pkgs;
-          };
+          theming = import themes/tokyonight.nix;
           inherit nix-index-database;
         };
       };

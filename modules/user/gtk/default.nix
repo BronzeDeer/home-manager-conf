@@ -7,10 +7,12 @@
   theming,
   ...
 }:
+let
+  themeConfig = theming { inherit pkgs; };
+in
 {
   home.packages = with pkgs; [
     lxappearance
-    dracula-theme
     moka-icon-theme
     numix-icon-theme-square
     whitesur-icon-theme
@@ -20,15 +22,15 @@
   gtk = {
     enable = true;
     font = {
-      name = theming.font-name;
+      name = themeConfig.font-name;
     };
     iconTheme = {
-      name = theming.gtk-icon-name;
+      name = themeConfig.gtk-icon-name;
     };
     theme = {
-      name = theming.gtk-theme-name;
+      name = themeConfig.gtk-theme-name;
     };
-    colorScheme = theming.gtk-color-scheme;
+    colorScheme = themeConfig.gtk-color-scheme;
 
     gtk4.theme = config.gtk.theme;
   };

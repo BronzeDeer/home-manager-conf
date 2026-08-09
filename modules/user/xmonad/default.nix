@@ -6,6 +6,9 @@
   ...
 }:
 with lib;
+let
+  themeConfig = theming { inherit pkgs; };
+in
 {
   xsession.enable = true;
   xsession.windowManager.xmonad = {
@@ -30,8 +33,8 @@ with lib;
       ''
         ${builtins.readFile ./config.hs}
 
-        myFocusedBorderColor = "${theming.accent-primary}"
-        myNormalBorderColor = "${theming.bg-primary-bright}"
+        myFocusedBorderColor = "${themeConfig.accent-primary}"
+        myNormalBorderColor = "${themeConfig.bg-primary-bright}"
       ''
       + (
         if config.userautostart.enable then

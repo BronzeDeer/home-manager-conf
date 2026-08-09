@@ -5,6 +5,9 @@
   theming,
   ...
 }:
+let
+  themeConfig = theming { inherit pkgs; };
+in
 {
   home.keyboard = {
     options = [
@@ -25,7 +28,7 @@
         harpoon2
         nvim-treesitter.withAllGrammars
       ]
-      ++ lib.optionals (theming ? "nvim-theme") [ theming.nvim-theme ];
+      ++ lib.optionals (theming ? "nvim-theme") [ themeConfig.nvim-theme ];
     vimAlias = true;
     defaultEditor = true;
     extraConfig = ''
