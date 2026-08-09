@@ -44,6 +44,7 @@
     ../../modules/user/fancy-shell
     ../../modules/user/mergiraf
     ../../modules/user/difftastic
+    ../../modules/user/graphic-design-tools
 
     ./fonts
   ];
