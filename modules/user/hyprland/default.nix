@@ -30,6 +30,8 @@ let
       dispatcher
     ];
   };
+
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
 in
 
 {
@@ -125,6 +127,14 @@ in
             (lua "{ mouse = true, drag = true }")
           ];
         }
+        # $MOD + LMB click toggles float state
+        {
+          _args = [
+            "${mainMod} + mouse:272"
+            (lua "hl.dsp.window.float()")
+            (lua "{ mouse = true, click = true }")
+          ];
+        }
 
         # General Bindings
         (bind "${mainMod} + F" (dsp.fullscreen))
@@ -143,6 +153,23 @@ in
         (bind "${mainMod} + Return" (dsp.layoutmsg "swapwithmaster ignoremaster auto"))
 
         (bind "CTRL + ALT + L" (dsp.exec "hyprlock --no-fade-in")) # If the lock is user triggered it should look and feel immediate, the slow fade is only for the idle
+
+
+        # Mediakey binds
+
+        # Volume control
+        (bind "XF86AudioRaiseVolume" (dsp.exec "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+"))
+        (bind "XF86AudioLowerVolume" (dsp.exec "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%-"))
+        (bind "XF86MonBrightnessUp" (dsp.exec "brightnessctl set 10%+"))
+        (bind "XF86MonBrightnessDown" (dsp.exec "brightnessctl set 10%-"))
+        (bind "XF86AudioMute" (dsp.exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+        (bind "XF86AudioMicMute" (dsp.exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
+
+        # Media control via playerctl
+        (bind "XF86AudioPlay" (dsp.exec "${playerctl} play-pause"))
+        (bind "XF86AudioStop" (dsp.exec "${playerctl} stop"))
+        (bind "XF86AudioPrev" (dsp.exec "${playerctl} previous"))
+        (bind "XF86AudioNext" (dsp.exec "${playerctl} next"))
 
       ]
       ++ (
