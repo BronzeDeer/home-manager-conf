@@ -6,6 +6,32 @@
   osConfig ? null,
   ...
 }:
+let
+  # Migration code and helper function adopted from https://git.aquaticservers.com/aqua/AquaticOS/commit/1622b14151e13b94f2d1f81b9e8a3841098eb1cf#diff-6ef6d4045aa3c10fbbd77cc9013c2393e76ac1a7
+  # After hyprconf is fully deprecated, let's hope home-manager gets better support for the conf format
+  lua = lib.generators.mkLuaInline;
+  mainMod = "SUPER";
+
+  dsp = {
+    exec = cmd: lua ''hl.dsp.exec_cmd("${cmd}")'';
+    close = lua "hl.dsp.window.close()";
+    fullscreen = lua "hl.dsp.window.fullscreen()";
+    layoutmsg = msg: lua ''hl.dsp.layout("${msg}")'';
+    killactive = lua "hl.dsp.window.kill(activewindow)";
+    moveToWorkspaceSilent =
+      ws: lua ''hl.dsp.window.move({ workspace = "${toString ws}", follow = false })'';
+    focusWorkSpaceOnCurrentMonitor =
+      ws: lua ''hl.dsp.focus({ workspace = "${toString ws}", on_current_monitor = true })'';
+  };
+
+  bind = keys: dispatcher: {
+    _args = [
+      keys
+      dispatcher
+    ];
+  };
+in
+
 {
   home.packages = with pkgs; [
     grimblast # screenshot tool
@@ -15,7 +41,7 @@
   ];
 
   wayland.windowManager.hyprland = {
-    configType = "hyprlang";
+    configType = "lua";
     enable =
       lib.warnIfNot (osConfig == null || osConfig.programs.hyprland.enable)
         "When using hyprland via the home-manager module on nixos, programs.hyperland.enable should be set in the nixos config as well"
@@ -24,24 +50,39 @@
     systemd.enableXdgAutostart = true;
 
     settings = {
-      general = {
-        layout = "master";
-        gaps_out = 2;
-        #"col.active_border" = "rgb(29315A)";
-      };
-      decoration = {
-        active_opacity = 1;
-        inactive_opacity = 0.95;
-        rounding = 5;
-      };
+      config = {
+        general = {
+          layout = "master";
+          gaps_out = 2;
+          #"col.active_border" = "rgb(29315A)";
+        };
+        decoration = {
+          active_opacity = 1;
+          inactive_opacity = 0.95;
+          rounding = 5;
+        };
 
-      misc = {
-        mouse_move_enables_dpms = true;
-        key_press_enables_dpms = true;
+        misc = {
+          mouse_move_enables_dpms = true;
+          key_press_enables_dpms = true;
+        };
+
+        # TODO: should be machine relative/read from xkb
+        input = {
+          kb_layout = "de";
+          kb_variant = "nodeadkeys";
+          kb_options = (lib.join "," config.home.keyboard.options);
+          numlock_by_default = true;
+        };
+
+        # Force xwayland apps (like steam) to not be a blurry wrong scaled mess
+        xwayland = {
+          force_zero_scaling = true;
+        };
       };
 
       # TODO: parse from machine config field if available (need to create that module first)
-      monitorv2 = [
+      monitor = [
         {
           output = "DP-3";
           # output = "serial:LKK0W0144340"; #Acer's goddamn cloned serial numbers really screw with this again (apparently ALTSERIAL field contains the correct ones, but that would need to be patched into hyprland)
@@ -66,49 +107,47 @@
           scale = 1;
         }
       ];
-      # TODO: should be machine relative/read from xkb
-      input = {
-        kb_layout = "de";
-        kb_variant = "nodeadkeys";
-        kb_options = config.home.keyboard.options;
-        numlock_by_default = true;
-      };
-
-      # Force xwayland apps (like steam to not be a blurry wrong scaled mess)
-      xwayland = {
-        force_zero_scaling = true;
-      };
-
-      "$mod" = "SUPER";
-
-      bindm = [
-        # Move/resize windows with mainMod + LMB/RMB and dragging
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-      ];
 
       bind = [
-        "$mod, F, fullscreen"
-        "CTRL ALT, T, exec, kitty" # TODO: make terminal dynamic
-        ", Print, exec, grimblast copy area"
-        "SHIFT, Print, exec, kooha"
-        "$mod, TAB, exec, rofi -show drun -theme grid"
-        "$mod SHIFT, C, killactive"
-        "$mod, J, layoutmsg, cycleprev"
-        "$mod, K, layoutmsg, cyclenext"
-        "$mod SHIFT, J, layoutmsg, swapprev"
-        "$mod SHIFT, K, layoutmsg, swapnext"
-        "$mod, H, layoutmsg, mfact -0.025"
-        "$mod, L, layoutmsg, mfact +0.025"
-        "$mod, SPACE, layoutmsg, orientationcycle left top center"
-        "$mod, Return, layoutmsg, swapwithmaster ignoremaster auto"
+        # Mouse Bindings
+        # Move/resize windows with mainMod + LMB/RMB and dragging
+        {
+          _args = [
+            "${mainMod} + mouse:272"
+            (lua "hl.dsp.window.drag()")
+            (lua "{ mouse = true, drag = true }")
+          ];
+        }
+        {
+          _args = [
+            "${mainMod} + mouse:273"
+            (lua "hl.dsp.window.resize()")
+            (lua "{ mouse = true, drag = true }")
+          ];
+        }
 
-        "CTRL ALT, L, exec, hyprlock --no-fade-in" # If the lock is user triggered it should look and feel immediate, the slow fade is only for the idle
+        # General Bindings
+        (bind "${mainMod} + F" (dsp.fullscreen))
+        (bind "CTRL + ALT + T" (dsp.exec "kitty")) # TODO: make terminal dynamic
+        (bind "Print" (dsp.exec "grimblast copy area"))
+        (bind "SHIFT + Print" (dsp.exec "kooha"))
+        (bind "${mainMod} + TAB" (dsp.exec "rofi -show drun -theme grid"))
+        (bind "${mainMod} + SHIFT + C" (dsp.killactive))
+        (bind "${mainMod} + J" (dsp.layoutmsg "cycleprev"))
+        (bind "${mainMod} + K" (dsp.layoutmsg "cyclenext"))
+        (bind "${mainMod} + SHIFT + J" (dsp.layoutmsg "swapprev"))
+        (bind "${mainMod} + SHIFT + K" (dsp.layoutmsg "swapnext"))
+        (bind "${mainMod} + H" (dsp.layoutmsg "mfact -0.025"))
+        (bind "${mainMod} + L" (dsp.layoutmsg "mfact +0.025"))
+        (bind "${mainMod} + SPACE" (dsp.layoutmsg "orientationcycle left top center"))
+        (bind "${mainMod} + Return" (dsp.layoutmsg "swapwithmaster ignoremaster auto"))
+
+        (bind "CTRL + ALT + L" (dsp.exec "hyprlock --no-fade-in")) # If the lock is user triggered it should look and feel immediate, the slow fade is only for the idle
 
       ]
       ++ (
         # workspaces
-        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        # binds ${mainMod} + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (
           builtins.genList (
             i:
@@ -117,37 +156,47 @@
             in
             [
               # Xmonad style switching instead of the default which leaves workspaces on the monitor where they were last
-              "$mod, code:1${toString i}, focusworkspaceoncurrentmonitor, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspacesilent, ${toString ws}"
+              (bind "${mainMod} + code:1${toString i}" (dsp.focusWorkSpaceOnCurrentMonitor "${toString ws}"))
+              (bind "${mainMod} + SHIFT + code:1${toString i}" (dsp.moveToWorkspaceSilent "${toString ws}"))
             ]
           ) 9
         )
       )
       # Workspace movement with Numpad keys (sadly the KP_n aliases do not work, but the aliases for numlock=false work in both state)
       ++ [
-        "$mod, KP_End, focusworkspaceoncurrentmonitor, 1"
-        "$mod, KP_Down, focusworkspaceoncurrentmonitor, 2"
-        "$mod, KP_Next, focusworkspaceoncurrentmonitor, 3"
-        "$mod, KP_Left, focusworkspaceoncurrentmonitor, 4"
-        "$mod, KP_Begin, focusworkspaceoncurrentmonitor, 5"
-        "$mod, KP_Right, focusworkspaceoncurrentmonitor, 6"
-        "$mod, KP_Home, focusworkspaceoncurrentmonitor, 7"
-        "$mod, KP_Up, focusworkspaceoncurrentmonitor, 8"
-        "$mod, KP_Prior, focusworkspaceoncurrentmonitor, 9"
+        (bind "${mainMod} + KP_End" (dsp.focusWorkSpaceOnCurrentMonitor "1"))
+        (bind "${mainMod} + KP_Down" (dsp.focusWorkSpaceOnCurrentMonitor "2"))
+        (bind "${mainMod} + KP_Next" (dsp.focusWorkSpaceOnCurrentMonitor "3"))
+        (bind "${mainMod} + KP_Left" (dsp.focusWorkSpaceOnCurrentMonitor "4"))
+        (bind "${mainMod} + KP_Begin" (dsp.focusWorkSpaceOnCurrentMonitor "5"))
+        (bind "${mainMod} + KP_Right" (dsp.focusWorkSpaceOnCurrentMonitor "6"))
+        (bind "${mainMod} + KP_Home" (dsp.focusWorkSpaceOnCurrentMonitor "7"))
+        (bind "${mainMod} + KP_Up" (dsp.focusWorkSpaceOnCurrentMonitor "8"))
+        (bind "${mainMod} + KP_Prior" (dsp.focusWorkSpaceOnCurrentMonitor "9"))
 
-        "$mod SHIFT, KP_End, movetoworkspacesilent, 1"
-        "$mod SHIFT, KP_Down, movetoworkspacesilent, 2"
-        "$mod SHIFT, KP_Next, movetoworkspacesilent, 3"
-        "$mod SHIFT, KP_Left, movetoworkspacesilent, 4"
-        "$mod SHIFT, KP_Begin, movetoworkspacesilent, 5"
-        "$mod SHIFT, KP_Right, movetoworkspacesilent, 6"
-        "$mod SHIFT, KP_Home, movetoworkspacesilent, 7"
-        "$mod SHIFT, KP_Up, movetoworkspacesilent, 8"
-        "$mod SHIFT, KP_Prior, movetoworkspacesilent, 9"
+        (bind "${mainMod} + SHIFT + KP_End" (dsp.moveToWorkspaceSilent "1"))
+        (bind "${mainMod} + SHIFT + KP_Down" (dsp.moveToWorkspaceSilent "2"))
+        (bind "${mainMod} + SHIFT + KP_Next" (dsp.moveToWorkspaceSilent "3"))
+        (bind "${mainMod} + SHIFT + KP_Left" (dsp.moveToWorkspaceSilent "4"))
+        (bind "${mainMod} + SHIFT + KP_Begin" (dsp.moveToWorkspaceSilent "5"))
+        (bind "${mainMod} + SHIFT + KP_Right" (dsp.moveToWorkspaceSilent "6"))
+        (bind "${mainMod} + SHIFT + KP_Home" (dsp.moveToWorkspaceSilent "7"))
+        (bind "${mainMod} + SHIFT + KP_Up" (dsp.moveToWorkspaceSilent "8"))
+        (bind "${mainMod} + SHIFT + KP_Prior" (dsp.moveToWorkspaceSilent "9"))
       ];
       env = [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        {
+          _args = [
+            "LIBVA_DRIVER_NAME"
+            "nvidia"
+          ];
+        }
+        {
+          _args = [
+            "__GLX_VENDOR_LIBRARY_NAME"
+            "nvidia"
+          ];
+        }
       ];
     };
   };
