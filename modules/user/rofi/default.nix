@@ -19,7 +19,7 @@ in
       pkgs.rofi-calc
       pkgs.rofi-file-browser
     ];
-    extraConfig = {
+    settings = {
       modes = [
         "window"
         "drun"
@@ -29,8 +29,8 @@ in
         "calc"
         "emoji"
       ];
+      font = "${themeConfig.font-name} ${toString themeConfig.font-size}";
     };
-    font = "${themeConfig.font-name} ${toString themeConfig.font-size}";
   };
   home.file.".config/rofi/colors.rasi".text = ''
     * {
