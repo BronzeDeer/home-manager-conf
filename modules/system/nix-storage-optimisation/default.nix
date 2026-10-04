@@ -10,6 +10,6 @@
     dates = "weekly";
     # Retain last 5 generations for boot repair,
     # even older ones can be reconstructed from git as needed
-    options = "--delete-older-than +5";
+    options = "--delete-older-than 30d";
   };
 }
