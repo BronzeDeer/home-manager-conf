@@ -65,9 +65,44 @@
 
     settings = {
       pull.rebase = true;
-      rerere.enabled = true;
+      
       core.editor = "vim";
       core.autocrlf = "input";
+
+      column.ui = "auto";
+      branch.sort = "-committerdate";
+      tag.sort = "version:refname";
+      init.default = "main";
+
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
+      };
+
+      pusch = {
+        default = "simple";
+        autoSetupRemote = true;
+        followTags = true;
+      };
+
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
+
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
+
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
 
       alias = {
         quicklog = "log --oneline --graph --decorate";
