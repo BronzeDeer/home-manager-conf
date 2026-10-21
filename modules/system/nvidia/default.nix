@@ -39,6 +39,6 @@
     services.xserver.videoDrivers = [ "nvidia" ];
 
     # Enable using gpu in containers
-    hardware.nvidia-container-toolkit.enable = true;
+    #hardware.nvidia-container-toolkit.enable = true;
   };
 }
