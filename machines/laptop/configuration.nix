@@ -45,8 +45,6 @@
       crypttabExtraOpts = [ "fido2-device=auto" ];
     };
   };
-  # Allow unlocking cryptroot with fido2 device if enrolled
-  boot.initrd.systemd.enable = true;
 
   boot.tmp.cleanOnBoot = true;
 
