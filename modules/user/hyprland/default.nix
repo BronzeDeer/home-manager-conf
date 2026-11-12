@@ -53,6 +53,11 @@ in
 
     settings = {
       config = {
+        binds = {
+          #Fire a drag event only after dragging for more than 10px
+          drag_threshold = 10;
+        };
+
         general = {
           layout = "master";
           gaps_out = 2;
@@ -117,14 +122,14 @@ in
           _args = [
             "${mainMod} + mouse:272"
             (lua "hl.dsp.window.drag()")
-            (lua "{ mouse = true, drag = true }")
+            (lua "{ mouse = true }")
           ];
         }
         {
           _args = [
             "${mainMod} + mouse:273"
             (lua "hl.dsp.window.resize()")
-            (lua "{ mouse = true, drag = true }")
+            (lua "{ mouse = true }")
           ];
         }
         # $MOD + LMB click toggles float state
@@ -132,7 +137,7 @@ in
           _args = [
             "${mainMod} + mouse:272"
             (lua "hl.dsp.window.float()")
-            (lua "{ mouse = true, click = true }")
+            (lua "{ click = true }")
           ];
         }
 
